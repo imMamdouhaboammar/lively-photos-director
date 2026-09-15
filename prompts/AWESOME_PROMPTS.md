@@ -427,12 +427,12 @@ This creates family resemblance without making every image look like the same ge
 
 When adding a new prompt, keep it concise and useful:
 
-```md
+````md
 ### NN. Prompt name
 
 ```text
 One scene. One clear action. One believable place. Natural camera logic. Minimal props. No decorative filler.
 ```
-```
+````
 
 Good additions should describe a moment that could actually happen, not simply add more adjectives to a generic portrait prompt.
