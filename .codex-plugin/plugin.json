@@ -1,0 +1,7 @@
+{
+  "name": "lively-photos-director",
+  "description": "Direct believable, natural, human-first photos from real-person reference photos",
+  "version": "1.0.0",
+  "entrypoint": "SKILL.md",
+  "skills": ["SKILL.md"]
+}

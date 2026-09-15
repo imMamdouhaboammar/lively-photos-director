@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/claude-plugin-manifest.json",
+  "name": "lively-photos-director",
+  "displayName": "Lively Photos Director",
+  "version": "1.0.0",
+  "description": "Universal AI agent skill for directing photorealistic, believable, human-first images from real-person reference photos",
+  "author": {
+    "name": "Mamdouh Aboammar",
+    "url": "https://github.com/imMamdouhaboammar"
+  },
+  "homepage": "https://skills.sh/imMamdouhaboammar/lively-photos-director",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imMamdouhaboammar/lively-photos-director.git"
+  },
+  "license": "MIT",
+  "categories": [
+    "automation",
+    "developer-tools",
+    "agent-tools",
+    "image-generation"
+  ],
+  "compatibility": {
+    "claudeCode": ">=1.0.0",
+    "claudeDesktop": ">=1.0.0",
+    "cursor": ">=0.40.0",
+    "codex": ">=0.1.0",
+    "opencode": ">=1.0.0",
+    "antigravity": ">=1.0.0"
+  },
+  "entrypoint": "SKILL.md",
+  "bin": {
+    "lively-photos-director": "./bin/cli.js"
+  }
+}

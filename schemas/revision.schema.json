@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/lively-photos-director/revision.schema.json",
+  "title": "Lively Photos Revision Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["problem", "evidence", "change", "protected_regions", "success_check"],
+  "properties": {
+    "problem": {"type": "string", "minLength": 1},
+    "evidence": {"type": "string", "minLength": 1},
+    "change": {"type": "string", "minLength": 1},
+    "protected_regions": {"type": "array", "items": {"type": "string"}},
+    "success_check": {"type": "string", "minLength": 1}
+  }
+}

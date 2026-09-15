@@ -1,0 +1,58 @@
+{
+  "name": "lively-photos-director",
+  "version": "1.0.0",
+  "description": "Universal AI agent skill for directing photorealistic, believable, human-first images from real-person reference photos",
+  "type": "module",
+  "main": "bin/cli.js",
+  "bin": {
+    "lively-photos-director": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imMamdouhaboammar/lively-photos-director.git"
+  },
+  "homepage": "https://skills.sh/imMamdouhaboammar/lively-photos-director",
+  "bugs": {
+    "url": "https://github.com/imMamdouhaboammar/lively-photos-director/issues"
+  },
+  "files": [
+    "bin",
+    "scripts",
+    "references",
+    "schemas",
+    "evals",
+    "SKILL.md",
+    "marketplace.json",
+    ".skills.json",
+    "install.sh"
+  ],
+  "scripts": {
+    "start": "bun bin/cli.js",
+    "test": "bun test && python3 scripts/validate_skill.py .",
+    "validate": "python3 scripts/validate_skill.py .",
+    "install:all": "bash install.sh"
+  },
+  "keywords": [
+    "agent-skill",
+    "skills-sh",
+    "claude-code",
+    "cursor",
+    "codex",
+    "gemini",
+    "antigravity",
+    "opencode",
+    "bun",
+    "image-generation",
+    "prompt-engineering",
+    "photography"
+  ],
+  "author": "Mamdouh Aboammar <https://github.com/imMamdouhaboammar>",
+  "license": "MIT",
+  "engines": {
+    "bun": ">=1.0.0",
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}

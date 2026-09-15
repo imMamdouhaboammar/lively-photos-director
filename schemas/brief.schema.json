@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/lively-photos-director/brief.schema.json",
+  "title": "Lively Photos Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["idea"],
+  "properties": {
+    "idea": {"type": "string", "minLength": 1},
+    "reference_images": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    },
+    "intended_use": {"type": "string"},
+    "must_include": {"type": "array", "items": {"type": "string"}},
+    "must_avoid": {"type": "array", "items": {"type": "string"}},
+    "aspect_ratio": {"type": "string"}
+  }
+}

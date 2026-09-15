@@ -1,0 +1,20 @@
+{"id":"p01","expected":"trigger","input":"Here is my photo. Make me look like I was naturally photographed during a partnership signing in an office."}
+{"id":"p02","expected":"trigger","input":"Use this selfie as reference and create a believable LinkedIn photo that does not look like an AI headshot."}
+{"id":"p03","expected":"trigger","input":"Put me at a conference talking to attendees, candid camera feel."}
+{"id":"p04","expected":"trigger","input":"I uploaded my picture. Make it look like a friend photographed me working at a cafe."}
+{"id":"p05","expected":"trigger","input":"Create a realistic image of me explaining a presentation to my team."}
+{"id":"p06","expected":"trigger","input":"Make a natural editorial portrait from this raw photo, not glamorous and not over-retouched."}
+{"id":"p07","expected":"trigger","input":"I want a credible PR-style photo of me in a formal Saudi corporate meeting."}
+{"id":"p08","expected":"trigger","input":"Use my reference image and create three believable event photos from the same conference session."}
+{"id":"p09","expected":"trigger","input":"Can you place me in a realistic workspace with normal daylight and make it feel camera-shot?"}
+{"id":"p10","expected":"trigger","input":"I need a natural photo of me walking through an exhibition hall while speaking with a colleague."}
+{"id":"n01","expected":"do_not_trigger","input":"Turn my selfie into an anime avatar."}
+{"id":"n02","expected":"do_not_trigger","input":"Create a cyberpunk poster using my face with neon typography."}
+{"id":"n03","expected":"do_not_trigger","input":"Design a social ad with headline, CTA, offer badge, and product packshot."}
+{"id":"n04","expected":"do_not_trigger","input":"Make me a fantasy warrior standing on a dragon."}
+{"id":"n05","expected":"do_not_trigger","input":"Draw a flat vector illustration of me for my website."}
+{"id":"n06","expected":"do_not_trigger","input":"Create a logo mark based on my portrait."}
+{"id":"n07","expected":"do_not_trigger","input":"Make a surreal image of me floating over Cairo with giant planets."}
+{"id":"n08","expected":"do_not_trigger","input":"Write me a prompt for a 3D metallic product render."}
+{"id":"n09","expected":"do_not_trigger","input":"Retouch this product photo and remove the background."}
+{"id":"n10","expected":"do_not_trigger","input":"Create an illustrated campaign key visual with Arabic copy and decorative shapes."}
