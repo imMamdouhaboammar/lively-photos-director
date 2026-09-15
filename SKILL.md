@@ -17,6 +17,7 @@ Use these references only when their branch applies:
 - `references/prompt-compiler.md` - convert the direction into a concise execution instruction for the host image tool
 - `references/qa.md` - final review gates, failure diagnosis, and bounded revision rules
 - `references/examples.md` - representative inputs and expected direction behavior
+- `prompts/AWESOME_PROMPTS.md` - curated scene ideas, ready-to-use prompts, and mix-and-match inspiration when the user asks for photo ideas or does not yet have a specific scene
 - `schemas/brief.schema.json` - optional structured brief contract
 - `schemas/direction.schema.json` - optional structured direction packet
 - `schemas/revision.schema.json` - optional targeted revision request
@@ -42,6 +43,8 @@ Choose one primary mode:
 - `event-documentary`
 
 If the user explicitly asks for a style outside these modes, do not force this Skill.
+
+If the user asks for ideas, scene options, prompt inspiration, or says they do not know what kind of photo to create, consult `prompts/AWESOME_PROMPTS.md`. Use it as an idea library, not as a reason to force a canned scene. Adapt the selected idea to the user's actual context, wardrobe, location, intended use, and reference-photo quality.
 
 ### 2. Lock identity before styling
 
