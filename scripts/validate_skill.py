@@ -112,7 +112,14 @@ def main() -> None:
         if not row.get("must_include") or not row.get("must_avoid"):
             fail(f"behavior case {row.get('id')} needs must_include and must_avoid")
 
-    corpus_files = [p for p in root.rglob("*") if p.is_file() and p.resolve() != Path(__file__).resolve() and "__pycache__" not in p.parts]
+    corpus_files = [
+        p for p in root.rglob("*")
+        if p.is_file()
+        and p.name != Path(__file__).name
+        and ".git" not in p.parts
+        and "node_modules" not in p.parts
+        and "__pycache__" not in p.parts
+    ]
     corpus = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in corpus_files)
     forbidden_patterns = [
         r"/Users/[^\s]+",
