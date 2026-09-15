@@ -15,6 +15,7 @@
 
 <p align="center">
   <a href="#-overview">Overview</a> •
+  <a href="#-awesome-prompt-collection">Prompts</a> •
   <a href="#-omni-channel-installation">Installation</a> •
   <a href="#-architecture">Architecture</a> •
   <a href="#-photographic-modes">Modes</a> •
@@ -38,6 +39,27 @@ Most AI headshots and synthetic corporate images fail because they look uncanny:
 - **Physical Coherence**: Enforces plausible focal lengths (35mm, 50mm, 85mm), real depth of field, and believable ambient light sources.
 - **Story-Bearing Moments**: Avoids arbitrary clutter—every person, document, screen, and prop must explain the moment.
 - **Anti-Slop Hard Gates**: Prohibits plastic retouching, neon gradients, and synthetic visual residue.
+
+---
+
+## ✨ Awesome Prompt Collection
+
+Need ideas before you know exactly what to ask for? The repository now includes a growing library of ready-to-use natural-photo concepts:
+
+**[Browse the Awesome Lively Photo Prompt Collection →](prompts/AWESOME_PROMPTS.md)**
+
+The first collection includes **48 curated prompts** across:
+
+- corporate documentary and partnership moments
+- founder, consultant, coach, and personal-brand scenes
+- everyday work-life photography
+- conferences and event documentary
+- casual lifestyle moments
+- urban and street photography
+- travel and hospitality
+- editorial-natural portraits
+
+It also includes reusable action, location, camera, and lighting matrices so you can build new prompt ideas without falling back to generic AI portrait language.
 
 ---
 
@@ -194,6 +216,8 @@ lively-photos-director/
 ├── install.sh                    # Universal cross-agent bash installer
 ├── bin/
 │   └── cli.js                    # Executable CLI entrypoint
+├── prompts/
+│   └── AWESOME_PROMPTS.md        # Curated natural-photo idea and prompt library
 ├── references/                   # Modular domain knowledge (loaded on demand)
 │   ├── direction-rules.md        # Camera, lighting, and scene guidelines
 │   ├── examples.md               # Input briefs and expected outputs
