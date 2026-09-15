@@ -6,10 +6,9 @@ The repository `lively-photos-director` was initially authored as a flat single-
 ## Architecture & Implementation
 1. **Modular Multi-Agent Skills Suite (`skills/`)**:
    - `lively-photos-director`: Central orchestrator and dynamic intent router. Classifies user requests across 4 dimensions (Workflow stage, Photographic mode, Target engine, and Execution tool availability) and coordinates the sub-skills.
-   - `identity-face-lock`: Extracts immutable facial landmarks and enforces natural skin texture/dermal micro-features, prohibiting AI plastic skin or beautification filters.
    - `photo-scene-director`: Sets optical parameters (focal lengths 28mm-85mm, apertures f/1.4-f/8, shutter speed) and physical light coherence across 5 photography modes.
    - `engine-prompt-compiler`: Multi-engine translation tailored for ChatGPT/DALL-E 3, Midjourney v6.1 (`--v 6.1`, `--style raw`, `--ar`, `--cw`), Flux.1 (Dev/Pro), and SDXL.
-   - `photo-qa-reviewer`: 6-Gate Realism Audit (Identity, Anatomy, Optics, Illumination, Context, Slop) and compiler for surgical delta inpainting repair prompts.
+   - `photo-qa-reviewer`: 6-Gate Realism Audit (Likeness, Anatomy, Optics, Illumination, Context, Slop) and compiler for surgical delta inpainting repair prompts.
    - `host-workspace-operator`: Canonical host-native workspace operations installed via autopilot.
 
 2. **Official OpenAI Manifest & Interface (`.codex-plugin/plugin.json`)**:

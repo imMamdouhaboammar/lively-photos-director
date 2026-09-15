@@ -1,13 +1,13 @@
 ---
 name: lively-photos-director
-description: "Use when directing photorealistic, believable, human-first images from real-person reference photos across corporate, professional, editorial, event, or everyday lifestyle scenes. Dynamically inspects user intent, reference image fidelity, target engine, and execution stage, orchestrating specialized sub-skills for facial anchor preservation, scene/camera lighting, prompt compilation, and visual QA audit. Do NOT use for fantasy art, anime, surreal composites, text-heavy key visuals, or non-photographic graphics."
+description: "Use when directing photorealistic, believable, human-first images from real-person reference photos across corporate, professional, editorial, event, or everyday lifestyle scenes. Dynamically inspects user intent, reference image likeness, target engine, and execution stage, orchestrating specialized sub-skills for scene optics, physical lighting, prompt compilation, and visual QA audit. Do NOT use for fantasy art, anime, surreal composites, text-heavy key visuals, or non-photographic graphics."
 ---
 
 # Lively Photos Director: Smart Dynamic Router & Orchestrator
 
 Direct believable, natural, human-first photos from real-person reference photos. Functions as the master orchestrator and dynamic routing brain for the entire lively photography workflow.
 
-North star: the final image must plausibly look like an authentic photograph captured by a skilled photographer, with intact identity and physical realism.
+North star: the final image must plausibly look like an authentic photograph captured by a skilled photographer, with recognizable subject likeness and physical realism.
 
 ## Dynamic Intent Routing Matrix
 
@@ -15,19 +15,19 @@ When a user prompt or image reference arrives, dynamically classify the request 
 
 | Input Signal / Utterance Type | Primary Phase | Dispatched Sub-Skills | Expected Output |
 | :--- | :--- | :--- | :--- |
-| **New Photo Direction from Reference**<br/>e.g. *"Here is my photo, direct a natural executive headshot in our office"* | Generation & Direction Pipeline | 1. `identity-face-lock`<br/>2. `photo-scene-director`<br/>3. `engine-prompt-compiler` | Complete photographic brief + targeted engine execution prompt |
-| **Face Drift / Plastic Skin Correction**<br/>e.g. *"The generated image made my face look fake and distorted my eyes"* | Identity & Texture Recovery | 1. `identity-face-lock`<br/>2. `photo-qa-reviewer` | Surgical facial anchor repair prompt / inpainting delta |
+| **New Photo Direction from Reference**<br/>e.g. *"Here is my photo, direct a natural executive headshot in our office"* | Generation & Direction Pipeline | 1. `photo-scene-director`<br/>2. `engine-prompt-compiler` | Complete photographic brief + targeted engine execution prompt with likeness preservation |
+| **Texture & Likeness Correction**<br/>e.g. *"The generated image made my skin look airbrushed and altered my appearance"* | Natural Texture & Likeness Recovery | `photo-qa-reviewer` | Surgical portrait repair prompt / inpainting delta for natural skin pores and features |
 | **Scene, Lighting, or Camera Refinement**<br/>e.g. *"Change the background to a conference hall with soft 85mm blur"* | Optical & Environmental Direction | `photo-scene-director` | Updated optical specs (focal length, aperture, light coherence) |
 | **Engine-Specific Prompt Translation**<br/>e.g. *"Compile this brief for Midjourney v6.1 with aspect ratio 16:9"* | Prompt Syntax Compilation | `engine-prompt-compiler` | Engine-tailored syntax (`--v 6.1`, `--style raw`, `--ar 16:9`, `--cw`) |
 | **Visual QA & Realism Audit**<br/>e.g. *"Review this generated photo against your 6 realism gates"* | Visual Quality Assurance | `photo-qa-reviewer` | 6-Gate scorecard + defect classification + approval status |
-| **Multi-Shot Series / Founder Campaign**<br/>e.g. *"Direct 3 consistent photos: one keynote, one boardroom, one coffee shop"* | Series Orchestration | All sub-skills in sequence | Multi-scene narrative plan maintaining unified identity & styling |
+| **Multi-Shot Series / Profile Campaign**<br/>e.g. *"Direct 3 consistent photos: one keynote, one boardroom, one coffee shop"* | Series Orchestration | All sub-skills in sequence | Multi-scene narrative plan maintaining unified character styling & lighting |
 
 ## Autonomous Execution Lifecycle
 
-### Phase 1: Ingest & Anchor Analysis
-1. Inspect the reference photo for face angle, resolution, lighting direction, and distinctive micro-features.
-2. Delegate to `identity-face-lock` to establish immutable facial landmark constraints (eye spacing, nose bridge, jawline, philtrum, real skin texture, hair texture).
-3. If the reference is weak, low-resolution, or partially occluded, enforce conservative identity boundaries without hallucinating synthetic features.
+### Phase 1: Reference Ingest & Subject Likeness
+1. Inspect the reference photo for lighting direction, natural skin tone, hair, and distinctive appearance.
+2. Establish natural likeness constraints: retain authentic skin micro-texture, real pores, eye spacing, and natural expression without artificial beautification or de-aging.
+3. If the reference is low-resolution or partially occluded, preserve visible structure conservatively without inventing synthetic details.
 
 ### Phase 2: Scene & Camera Synthesis
 1. Classify the desired scene into one of the 5 photographic modes:

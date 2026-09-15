@@ -228,43 +228,41 @@ lively-photos-director install cursor
                                  └─────────────────────────────┬─────────────────────────────┘
                                                                │
                                                                ▼
-                                 ┌───────────────────────────────────────────────────────────┐
-                                 │   [skills/lively-photos-director]                         │
-                                 │   SMART DYNAMIC ROUTER & MASTER ORCHESTRATOR             │
-                                 └─────────────┬───────────────────────────────┬─────────────┘
-                                               │                               │
-                      ┌────────────────────────┴────────┐             ┌────────┴────────────────────────┐
-                      ▼                                 ▼             ▼                                 ▼
-       ┌──────────────────────────────┐  ┌──────────────────────────┐  ┌─────────────────────────┐  ┌─────────────────────────┐
-       │   [identity-face-lock]       │  │  [photo-scene-director]  │  │ [engine-prompt-compiler]│  │   [photo-qa-reviewer]   │
-       │ Facial Landmarks, Real Skin, │  │ 5 Modes, Camera Optics,  │  │ DALL-E 3, Midjourney,   │  │ 6-Gate Realism Audit &  │
-       │ Anti-Plastic & Texture Lock  │  │ Physical Light Coherence │  │ Flux.1, SDXL, Imagen    │  │ Surgical Delta Repair   │
-       └──────────────┬───────────────┘  └──────────────┬───────────┘  └────────────┬────────────┘  └────────────┬────────────┘
-                      │                                 │                           │                            │
-                      └─────────────────────────────────┴───────────────────────────┼────────────────────────────┘
-                                                                                    ▼
-                                                                 ┌─────────────────────────────────────┐
-                                                                 │ Believable, Human-First Photograph  │
-                                                                 └─────────────────────────────────────┘
+                                  ┌───────────────────────────────────────────────────────────┐
+                                  │   [skills/lively-photos-director]                         │
+                                  │   SMART DYNAMIC ROUTER & MASTER ORCHESTRATOR             │
+                                  └─────────────┬───────────────────────────────┬─────────────┘
+                                                │                               │
+                       ┌────────────────────────┴────────┐             ┌────────┴────────────────────────┐
+                       ▼                                 ▼             ▼                                 ▼
+        ┌──────────────────────────────┐  ┌──────────────────────────┐  ┌─────────────────────────┐  ┌─────────────────────────┐
+        │   [photo-scene-director]     │  │ [engine-prompt-compiler] │  │   [photo-qa-reviewer]   │  │[host-workspace-operator]│
+        │ 5 Modes, Camera Optics,      │  │ DALL-E 3, Midjourney,    │  │ 6-Gate Realism Audit &  │  │ Host-Native File &      │
+        │ Physical Light Coherence     │  │ Flux.1, SDXL Syntax      │  │ Surgical Delta Repair   │  │ Reference Inspection    │
+        └──────────────┬───────────────┘  └──────────────┬───────────┘  └────────────┬────────────┘  └────────────┬────────────┘
+                       │                                 │                           │                            │
+                       └─────────────────────────────────┴───────────────────────────┼────────────────────────────┘
+                                                                                     ▼
+                                                                  ┌─────────────────────────────────────┐
+                                                                  │ Believable, Human-First Photograph  │
+                                                                  └─────────────────────────────────────┘
 ```
 
-### The 6 Agentic Skills Suite:
+### The 5 Agentic Skills Suite:
 
 1. **`lively-photos-director`** (Smart Dynamic Router & Master Orchestrator):
    - Intelligently classifies user intent, input modality, and lifecycle stage.
    - Coordinates multi-skill pipelines and drives the closed-loop revision cycle.
-2. **`identity-face-lock`** (Identity Preservation & Facial Anchor Specialist):
-   - Locks facial bone structure, eye geometry, nose bridge, philtrum, and jawline.
-   - Strictly enforces natural skin pores, realistic dermal sebum, and micro-imperfections while preventing AI beautification and racial/age drift.
-3. **`photo-scene-director`** (Environment, Camera Optics & Lighting Specialist):
+2. **`photo-scene-director`** (Environment, Camera Optics & Lighting Specialist):
    - Sets exact focal lengths (28mm-85mm), apertures (f/1.4-f/8), depth of field, and shutter speeds across the 5 photography modes.
    - Enforces physical lighting coherence: motivated ambient daylight, directional key/fill, and matching eye catchlights.
-4. **`engine-prompt-compiler`** (Multi-Engine Prompt Compiler):
+   - Preserves natural subject likeness and authentic skin texture without artificial smoothing or plastic filters.
+3. **`engine-prompt-compiler`** (Multi-Engine Prompt Compiler):
    - Translates high-level photographic direction into engine-tailored syntax for ChatGPT/DALL-E 3, Midjourney v6.1 (`--v 6.1`, `--style raw`, `--ar`, `--cw`), Flux.1 (Dev/Pro), and SDXL.
-5. **`photo-qa-reviewer`** (Visual QA & Delta Revision Director):
-   - Audits generated images against 6 Hard Realism Gates (Identity, Anatomy, Optics, Illumination, Context, Slop).
+4. **`photo-qa-reviewer`** (Visual QA & Delta Revision Director):
+   - Audits generated images against 6 Hard Realism Gates (Subject Likeness & Consistency, Anatomy, Optics, Illumination, Context, Slop).
    - Generates surgical bounded inpainting delta prompts targeting defects without full-image rerolls.
-6. **`host-workspace-operator`** (Host Workspace Operations):
+5. **`host-workspace-operator`** (Host Workspace Operations):
    - Performs host-native file inspection, reference photo verification, and output analysis.
 
 ---
@@ -277,7 +275,6 @@ lively-photos-director/
 │   └── plugin.json               # Official OpenAI Codex Plugin manifest
 ├── skills/                       # Modular agentic skills suite
 │   ├── lively-photos-director/   # Smart Dynamic Router & Master Orchestrator
-│   ├── identity-face-lock/       # Facial Landmark & Skin Texture Specialist
 │   ├── photo-scene-director/     # Optics, Light & Scene Director
 │   ├── engine-prompt-compiler/   # Multi-Engine Prompt Compiler
 │   ├── photo-qa-reviewer/        # 6-Gate Realism Audit & Delta Revision

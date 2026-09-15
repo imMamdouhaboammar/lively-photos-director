@@ -12,12 +12,12 @@
   "interface": {
     "displayName": "Lively Photos Director",
     "shortDescription": "Direct human-first photos",
-    "longDescription": "Lively Photos Director directs photorealistic, believable, human-first images from real-person reference photos. Powered by a Smart Dynamic Router and specialized agentic skills, it preserves immutable facial landmarks and authentic skin texture while calculating optical camera parameters, coherent physical lighting, and realistic context across corporate documentary, candid professional, editorial, event, and everyday lifestyle modes. It compiles engine-optimized prompts for ChatGPT/DALL-E 3, Midjourney, Flux.1, and SDXL, and runs closed-loop visual QA against 6 realism gates with surgical delta inpainting repair.",
+    "longDescription": "Lively Photos Director directs photorealistic, believable, human-first images from real-person reference photos. Powered by a Smart Dynamic Router and specialized agentic skills, it preserves natural subject likeness and authentic skin texture while calculating optical camera parameters, coherent physical lighting, and realistic context across corporate documentary, candid professional, editorial, event, and everyday lifestyle modes. It compiles engine-optimized prompts for ChatGPT/DALL-E 3, Midjourney, Flux.1, and SDXL, and runs closed-loop visual QA against 6 realism gates with surgical delta inpainting repair.",
     "developerName": "Mamdouh Aboammar",
     "category": "Creativity",
     "capabilities": [
-      "Smart dynamic routing across photographic modes, identity locking, prompt compilation, and visual QA",
-      "Facial landmark anchoring and skin texture preservation without plastic AI airbrushing",
+      "Smart dynamic routing across photographic modes, scene direction, prompt compilation, and visual QA",
+      "Natural subject likeness and authentic skin texture preservation without plastic AI airbrushing",
       "Photographic scene direction with precise focal length, aperture, and depth-of-field optics",
       "Physical lighting coherence aligning key light, window daylight, shadows, and eye catchlights",
       "Multi-engine prompt compilation tailored for Midjourney v6, Flux.1, ChatGPT/DALL-E 3, and SDXL",
@@ -27,7 +27,7 @@
     ],
     "defaultPrompt": [
       "Direct a natural corporate documentary photo of our CEO in an executive boardroom from this reference",
-      "Lock my facial features from this portrait and direct an editorial natural outdoor magazine profile",
+      "Direct an editorial natural outdoor magazine profile preserving subject likeness from this portrait",
       "Audit this generated photo against the 6 realism gates and generate a surgical delta inpainting prompt"
     ],
     "brandColor": "#2563EB",

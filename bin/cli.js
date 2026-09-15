@@ -143,11 +143,6 @@ const SKILLS = [
     description: 'Directs end-to-end photo generation, classifies intent, and orchestrates specialized agent skills.'
   },
   {
-    name: 'identity-face-lock',
-    role: 'Identity Preservation & Facial Anchor Specialist',
-    description: 'Extracts immutable facial landmarks and preserves authentic skin texture without plastic AI smoothing.'
-  },
-  {
     name: 'photo-scene-director',
     role: 'Environment, Optics & Lighting Specialist',
     description: 'Directs camera focal length, aperture depth-of-field, physical light coherence, and natural posture.'
@@ -193,16 +188,13 @@ function routePrompt(promptText) {
 
   if (query.includes('audit') || query.includes('review') || query.includes('qa') || query.includes('fix') || query.includes('deformed') || query.includes('extra finger') || query.includes('plastic')) {
     intent = 'qa-audit-and-revision';
-    routedSkills = ['photo-qa-reviewer', 'identity-face-lock'];
+    routedSkills = ['photo-qa-reviewer'];
   } else if (query.includes('compile') || query.includes('midjourney') || query.includes('flux') || query.includes('dall-e') || query.includes('sdxl')) {
     intent = 'engine-compilation';
     routedSkills = ['engine-prompt-compiler'];
-  } else if (query.includes('face') || query.includes('identity') || query.includes('skin') || query.includes('anchor')) {
-    intent = 'identity-preservation';
-    routedSkills = ['identity-face-lock', 'photo-scene-director', 'engine-prompt-compiler'];
   } else {
     intent = 'full-photo-direction';
-    routedSkills = ['identity-face-lock', 'photo-scene-director', 'engine-prompt-compiler', 'photo-qa-reviewer'];
+    routedSkills = ['photo-scene-director', 'engine-prompt-compiler', 'photo-qa-reviewer'];
   }
 
   // 2. Detect Photography Mode
@@ -235,7 +227,7 @@ Dispatched Agentic Skills Sequence:
 ${routedSkills.map((s, idx) => `  ${idx + 1}. [${s}]`).join('\n')}
 
 Routing Strategy:
-  • Identity: Enforce immutable facial landmarks & natural dermal texture via [identity-face-lock]
+  • Likeness: Enforce authentic subject likeness & natural skin texture via [lively-photos-director]
   • Optics:   Frame scene with ${detectedMode} parameters via [photo-scene-director]
   • Compiler: Target syntax generation without artificial slop via [engine-prompt-compiler]
   • Audit:    Verify against 6 Hard Realism Gates via [photo-qa-reviewer]

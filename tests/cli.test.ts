@@ -43,7 +43,7 @@ describe("lively-photos-director CLI", () => {
     const res = spawnSync("bun", [CLI_PATH, "skills"], { encoding: "utf8" });
     expect(res.status).toBe(0);
     expect(res.stdout).toContain("Codex Plugin Agentic Skills Suite");
-    expect(res.stdout).toContain("identity-face-lock");
+    expect(res.stdout).toContain("host-workspace-operator");
     expect(res.stdout).toContain("photo-scene-director");
     expect(res.stdout).toContain("engine-prompt-compiler");
     expect(res.stdout).toContain("photo-qa-reviewer");
@@ -54,8 +54,8 @@ describe("lively-photos-director CLI", () => {
     expect(res.status).toBe(0);
     expect(res.stdout).toContain("Smart Dynamic Router Decision:");
     expect(res.stdout).toContain("documentary-corporate");
-    expect(res.stdout).toContain("identity-face-lock");
     expect(res.stdout).toContain("photo-scene-director");
+    expect(res.stdout).toContain("engine-prompt-compiler");
   });
 
   test("runs validation with validate command", () => {

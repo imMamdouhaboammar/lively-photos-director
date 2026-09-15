@@ -7,22 +7,22 @@
         "id": "pos-01-corporate-documentary",
         "title": "Corporate Documentary Partnership Scene",
         "prompt": "Here is a photo of our CEO. Direct a believable, unposed photo of her signing a strategic partnership in a modern boardroom.",
-        "expected_route": ["identity-face-lock", "photo-scene-director", "engine-prompt-compiler"],
-        "expected_behavior": "Extracts facial anchors and real skin texture; selects documentary-corporate mode; specifies 35mm-50mm focal length at f/4.0; balances soft window daylight with office ambient; positions subject in lower-middle frame with institutional glass partition; compiles bounded prompt without plastic smoothing."
+        "expected_route": ["photo-scene-director", "engine-prompt-compiler", "photo-qa-reviewer"],
+        "expected_behavior": "Preserves authentic subject likeness and natural skin texture; selects documentary-corporate mode; specifies 35mm-50mm focal length at f/4.0; balances soft window daylight with office ambient; positions subject in lower-middle frame with institutional glass partition; compiles bounded prompt without plastic smoothing."
       },
       {
         "id": "pos-02-candid-professional",
         "title": "Candid Professional Collaborative Flow",
         "prompt": "Create an image of this founder collaborating with an engineer at an open workspace standing desk, holding coffee.",
-        "expected_route": ["identity-face-lock", "photo-scene-director", "engine-prompt-compiler"],
-        "expected_behavior": "Preserves facial features and ethnic undertones; selects candid-professional mode; directs 50mm-85mm at f/2.2 with creamy optical falloff; ensures hands hold coffee cup naturally; enforces relaxed engaged expression."
+        "expected_route": ["photo-scene-director", "engine-prompt-compiler", "photo-qa-reviewer"],
+        "expected_behavior": "Preserves subject likeness and ethnic undertones; selects candid-professional mode; directs 50mm-85mm at f/2.2 with creamy optical falloff; ensures hands hold coffee cup naturally; enforces relaxed engaged expression."
       },
       {
         "id": "pos-03-editorial-natural",
         "title": "Editorial Natural Magazine Profile",
         "prompt": "Direct an editorial natural portrait of the person in this reference photo for a magazine profile, sitting near a large sunlit window.",
-        "expected_route": ["identity-face-lock", "photo-scene-director", "engine-prompt-compiler"],
-        "expected_behavior": "Locks bone structure and eye shape; selects editorial-natural mode; directs 85mm f/1.8 prime optics with natural window key light; captures fine skin pores and subtle shadows without synthetic high-contrast filter."
+        "expected_route": ["photo-scene-director", "engine-prompt-compiler", "photo-qa-reviewer"],
+        "expected_behavior": "Preserves subject likeness and eye aesthetics; selects editorial-natural mode; directs 85mm f/1.8 prime optics with natural window key light; captures fine skin pores and subtle shadows without synthetic high-contrast filter."
       },
       {
         "id": "pos-04-multi-engine-compilation",
