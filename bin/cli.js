@@ -136,6 +136,113 @@ function runInstall(target = 'all') {
   process.exit(res.status ?? 0);
 }
 
+const SKILLS = [
+  {
+    name: 'lively-photos-director',
+    role: 'Smart Dynamic Router & Master Orchestrator',
+    description: 'Directs end-to-end photo generation, classifies intent, and orchestrates specialized agent skills.'
+  },
+  {
+    name: 'identity-face-lock',
+    role: 'Identity Preservation & Facial Anchor Specialist',
+    description: 'Extracts immutable facial landmarks and preserves authentic skin texture without plastic AI smoothing.'
+  },
+  {
+    name: 'photo-scene-director',
+    role: 'Environment, Optics & Lighting Specialist',
+    description: 'Directs camera focal length, aperture depth-of-field, physical light coherence, and natural posture.'
+  },
+  {
+    name: 'engine-prompt-compiler',
+    role: 'Multi-Engine Prompt Compiler',
+    description: 'Translates photographic direction into engine-tuned syntax for Midjourney v6, Flux.1, ChatGPT/DALL-E 3, and SDXL.'
+  },
+  {
+    name: 'photo-qa-reviewer',
+    role: 'Visual QA & Delta Revision Director',
+    description: 'Audits generated photos against 6 Hard Realism Gates and compiles surgical bounded inpainting delta prompts.'
+  },
+  {
+    name: 'host-workspace-operator',
+    role: 'Host Workspace Operations',
+    description: 'Performs safe host-native file inspection, reference photo verification, and output analysis.'
+  }
+];
+
+function printSkills() {
+  console.log(`\n🤖 Codex Plugin Agentic Skills Suite (${SKILLS.length} Skills):\n`);
+  SKILLS.forEach((s, idx) => {
+    console.log(`${idx + 1}. [${s.name}] - ${s.role}`);
+    console.log(`   ${s.description}\n`);
+  });
+}
+
+function routePrompt(promptText) {
+  if (!promptText || !promptText.trim()) {
+    console.error('❌ Please provide a prompt or idea to route. Example: lively-photos-director route "Direct a candid shot of our CEO in an office"');
+    process.exit(1);
+  }
+
+  const query = promptText.toLowerCase();
+
+  // 1. Detect Intent Category
+  let intent = 'direction';
+  let routedSkills = [];
+  let detectedMode = 'candid-professional';
+  let cameraAdvice = '50mm portrait lens, f/2.0-f/2.8, soft diffused natural daylight';
+
+  if (query.includes('audit') || query.includes('review') || query.includes('qa') || query.includes('fix') || query.includes('deformed') || query.includes('extra finger') || query.includes('plastic')) {
+    intent = 'qa-audit-and-revision';
+    routedSkills = ['photo-qa-reviewer', 'identity-face-lock'];
+  } else if (query.includes('compile') || query.includes('midjourney') || query.includes('flux') || query.includes('dall-e') || query.includes('sdxl')) {
+    intent = 'engine-compilation';
+    routedSkills = ['engine-prompt-compiler'];
+  } else if (query.includes('face') || query.includes('identity') || query.includes('skin') || query.includes('anchor')) {
+    intent = 'identity-preservation';
+    routedSkills = ['identity-face-lock', 'photo-scene-director', 'engine-prompt-compiler'];
+  } else {
+    intent = 'full-photo-direction';
+    routedSkills = ['identity-face-lock', 'photo-scene-director', 'engine-prompt-compiler', 'photo-qa-reviewer'];
+  }
+
+  // 2. Detect Photography Mode
+  if (query.includes('boardroom') || query.includes('executive') || query.includes('signing') || query.includes('corporate') || query.includes('partnership') || query.includes('annual report')) {
+    detectedMode = 'documentary-corporate';
+    cameraAdvice = '35mm-50mm prime, f/3.5-f/5.6, balanced office window daylight with soft ambient fill';
+  } else if (query.includes('magazine') || query.includes('profile') || query.includes('portrait') || query.includes('editorial') || query.includes('thought leader')) {
+    detectedMode = 'editorial-natural';
+    cameraAdvice = '85mm f/1.8 prime, directional natural daylight, organic background depth';
+  } else if (query.includes('stage') || query.includes('keynote') || query.includes('conference') || query.includes('event') || query.includes('panel') || query.includes('summit')) {
+    detectedMode = 'event-documentary';
+    cameraAdvice = '35mm-70mm zoom, f/2.8, motivated stage spotlight balanced with ambient auditorium';
+  } else if (query.includes('cafe') || query.includes('coffee') || query.includes('travel') || query.includes('street') || query.includes('outdoor') || query.includes('lifestyle')) {
+    detectedMode = 'everyday-lifestyle';
+    cameraAdvice = '28mm-35mm documentary lens, f/2.8, available ambient light with natural imperfections';
+  } else {
+    detectedMode = 'candid-professional';
+    cameraAdvice = '50mm-85mm, f/2.0-f/2.8, creamy background separation, unposed collaborative moment';
+  }
+
+  console.log(`
+🧭 Smart Dynamic Router Decision:
+============================================================
+Input Query:      "${promptText.trim()}"
+Detected Intent:  ${intent.toUpperCase()}
+Primary Mode:     ${detectedMode}
+Camera Optics:    ${cameraAdvice}
+
+Dispatched Agentic Skills Sequence:
+${routedSkills.map((s, idx) => `  ${idx + 1}. [${s}]`).join('\n')}
+
+Routing Strategy:
+  • Identity: Enforce immutable facial landmarks & natural dermal texture via [identity-face-lock]
+  • Optics:   Frame scene with ${detectedMode} parameters via [photo-scene-director]
+  • Compiler: Target syntax generation without artificial slop via [engine-prompt-compiler]
+  • Audit:    Verify against 6 Hard Realism Gates via [photo-qa-reviewer]
+============================================================
+`);
+}
+
 function main() {
   const args = process.argv.slice(2);
   const cmd = args[0];
@@ -157,6 +264,12 @@ function main() {
     case 'modes':
       printModes();
       break;
+    case 'skills':
+      printSkills();
+      break;
+    case 'route':
+      routePrompt(args.slice(1).join(' '));
+      break;
     case 'view':
     case 'cat':
       viewSkill();
@@ -175,3 +288,4 @@ function main() {
 }
 
 main();
+

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="lensReflect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+    <linearGradient id="sparkGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Rounded Icon Surface -->
+  <rect width="512" height="512" rx="112" fill="url(#iconBg)" />
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="none" stroke="#60A5FA" stroke-width="4" opacity="0.4" />
+
+  <!-- Outer Camera Aperture Ring -->
+  <circle cx="256" cy="256" r="160" fill="url(#lensReflect)" stroke="#93C5FD" stroke-width="6" />
+
+  <!-- Aperture Segments -->
+  <g stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <path d="M 256 106 L 336 176" />
+    <path d="M 386 196 L 386 296" />
+    <path d="M 366 356 L 286 406" />
+    <path d="M 256 406 L 176 336" />
+    <path d="M 126 316 L 126 216" />
+    <path d="M 146 156 L 226 106" />
+  </g>
+
+  <!-- Core Lens Element -->
+  <circle cx="256" cy="256" r="98" fill="#1E3A8A" stroke="#BFDBFE" stroke-width="3" />
+
+  <!-- Authentic Human Silhouette -->
+  <circle cx="256" cy="222" r="30" fill="#FFFFFF" />
+  <path d="M 200 320 C 200 274 228 268 256 268 C 284 268 312 274 312 320 Z" fill="#FFFFFF" />
+
+  <!-- Focus Spark -->
+  <circle cx="320" cy="192" r="10" fill="url(#sparkGold)" />
+  <path d="M 320 176 L 320 208 M 304 192 L 336 192" stroke="url(#sparkGold)" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Corner Viewfinder Marks -->
+  <path d="M 72 136 L 72 72 L 136 72" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  <path d="M 440 136 L 440 72 L 376 72" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  <path d="M 72 376 L 72 440 L 136 440" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  <path d="M 440 376 L 440 440 L 376 440" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+</svg>

@@ -1,0 +1,11 @@
+interface:
+  display_name: "Photo QA Reviewer"
+  short_description: "Audit photo realism & QA gates"
+  brand_color: "#2563EB"
+  default_prompt: "Audit this generated photo against the 6 realism gates"
+
+policy:
+  products:
+    - "CHAT"
+    - "CODEX"
+  allow_implicit_invocation: true

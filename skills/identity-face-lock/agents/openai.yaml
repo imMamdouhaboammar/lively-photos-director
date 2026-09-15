@@ -1,0 +1,11 @@
+interface:
+  display_name: "Identity Face Lock"
+  short_description: "Preserve face anchors & skin"
+  brand_color: "#2563EB"
+  default_prompt: "Lock identity landmarks and skin texture from this reference photo"
+
+policy:
+  products:
+    - "CHAT"
+    - "CODEX"
+  allow_implicit_invocation: true

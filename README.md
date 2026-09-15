@@ -188,11 +188,25 @@ lively-photos-director info
 # View the 5 photography direction modes
 lively-photos-director modes
 
+# Inspect the 6 agentic skills in the Codex Plugin suite
+lively-photos-director skills
+
+# Test the Smart Dynamic Router on any prompt
+lively-photos-director route "Direct a candid shot of our CEO in an executive boardroom signing a deal"
+lively-photos-director route "Audit this photo against the 6 gates because the face looks plastic"
+lively-photos-director route "Compile this scene for Midjourney with 16:9 ratio"
+
 # Print complete SKILL.md specification
 lively-photos-director view
 
 # Run package structural validation and integrity checks
 lively-photos-director validate
+
+# Validate Codex Plugin contract (zero-error Autopilot preflight)
+bun run test:plugin
+
+# Build deterministic reproducible plugin ZIP
+bun run package:plugin
 
 # Install skill to agent environments
 lively-photos-director install all
@@ -204,18 +218,85 @@ lively-photos-director install cursor
 
 ---
 
+## 🤖 Fully Agentic Codex Plugin with Smart Dynamic Router
+
+`lively-photos-director` is equipped with a **Smart Dynamic Router** and a modular multi-agent skill suite under `./skills/` conforming strictly to the official OpenAI Codex Plugin standard:
+
+```
+                                 ┌───────────────────────────────────────────────────────────┐
+                                 │                 USER PROMPT & REFERENCE                  │
+                                 └─────────────────────────────┬─────────────────────────────┘
+                                                               │
+                                                               ▼
+                                 ┌───────────────────────────────────────────────────────────┐
+                                 │   [skills/lively-photos-director]                         │
+                                 │   SMART DYNAMIC ROUTER & MASTER ORCHESTRATOR             │
+                                 └─────────────┬───────────────────────────────┬─────────────┘
+                                               │                               │
+                      ┌────────────────────────┴────────┐             ┌────────┴────────────────────────┐
+                      ▼                                 ▼             ▼                                 ▼
+       ┌──────────────────────────────┐  ┌──────────────────────────┐  ┌─────────────────────────┐  ┌─────────────────────────┐
+       │   [identity-face-lock]       │  │  [photo-scene-director]  │  │ [engine-prompt-compiler]│  │   [photo-qa-reviewer]   │
+       │ Facial Landmarks, Real Skin, │  │ 5 Modes, Camera Optics,  │  │ DALL-E 3, Midjourney,   │  │ 6-Gate Realism Audit &  │
+       │ Anti-Plastic & Texture Lock  │  │ Physical Light Coherence │  │ Flux.1, SDXL, Imagen    │  │ Surgical Delta Repair   │
+       └──────────────┬───────────────┘  └──────────────┬───────────┘  └────────────┬────────────┘  └────────────┬────────────┘
+                      │                                 │                           │                            │
+                      └─────────────────────────────────┴───────────────────────────┼────────────────────────────┘
+                                                                                    ▼
+                                                                 ┌─────────────────────────────────────┐
+                                                                 │ Believable, Human-First Photograph  │
+                                                                 └─────────────────────────────────────┘
+```
+
+### The 6 Agentic Skills Suite:
+
+1. **`lively-photos-director`** (Smart Dynamic Router & Master Orchestrator):
+   - Intelligently classifies user intent, input modality, and lifecycle stage.
+   - Coordinates multi-skill pipelines and drives the closed-loop revision cycle.
+2. **`identity-face-lock`** (Identity Preservation & Facial Anchor Specialist):
+   - Locks facial bone structure, eye geometry, nose bridge, philtrum, and jawline.
+   - Strictly enforces natural skin pores, realistic dermal sebum, and micro-imperfections while preventing AI beautification and racial/age drift.
+3. **`photo-scene-director`** (Environment, Camera Optics & Lighting Specialist):
+   - Sets exact focal lengths (28mm-85mm), apertures (f/1.4-f/8), depth of field, and shutter speeds across the 5 photography modes.
+   - Enforces physical lighting coherence: motivated ambient daylight, directional key/fill, and matching eye catchlights.
+4. **`engine-prompt-compiler`** (Multi-Engine Prompt Compiler):
+   - Translates high-level photographic direction into engine-tailored syntax for ChatGPT/DALL-E 3, Midjourney v6.1 (`--v 6.1`, `--style raw`, `--ar`, `--cw`), Flux.1 (Dev/Pro), and SDXL.
+5. **`photo-qa-reviewer`** (Visual QA & Delta Revision Director):
+   - Audits generated images against 6 Hard Realism Gates (Identity, Anatomy, Optics, Illumination, Context, Slop).
+   - Generates surgical bounded inpainting delta prompts targeting defects without full-image rerolls.
+6. **`host-workspace-operator`** (Host Workspace Operations):
+   - Performs host-native file inspection, reference photo verification, and output analysis.
+
+---
+
 ## 📁 Repository Structure
 
 ```text
 lively-photos-director/
-├── SKILL.md                      # Core skill brain & instruction contract
+├── .codex-plugin/
+│   └── plugin.json               # Official OpenAI Codex Plugin manifest
+├── skills/                       # Modular agentic skills suite
+│   ├── lively-photos-director/   # Smart Dynamic Router & Master Orchestrator
+│   ├── identity-face-lock/       # Facial Landmark & Skin Texture Specialist
+│   ├── photo-scene-director/     # Optics, Light & Scene Director
+│   ├── engine-prompt-compiler/   # Multi-Engine Prompt Compiler
+│   ├── photo-qa-reviewer/        # 6-Gate Realism Audit & Delta Revision
+│   └── host-workspace-operator/  # Host Workspace Operations Skill
+├── assets/                       # Square SVG brand identity pack
+│   ├── logo-light.svg            # Light-mode SVG logo
+│   ├── logo-dark.svg             # Dark-mode SVG logo
+│   └── icon.svg                  # 512x512 composer icon
+├── submission/                   # Plugin Directory listing & reviewer pack
+│   ├── listing.json              # Directory metadata & capabilities
+│   └── reviewer_tests.json       # 5 positive & 3 negative test cases
+├── SKILL.md                      # Root universal skill contract
 ├── README.md                     # High-presence documentation & guide
 ├── package.json                  # npm / Bun manifest with binary CLI runner
 ├── marketplace.json              # Claude Plugin manifest
 ├── .skills.json                  # Skills.sh registry manifest
 ├── install.sh                    # Universal cross-agent bash installer
 ├── bin/
-│   └── cli.js                    # Executable CLI entrypoint
+│   └── cli.js                    # Executable CLI entrypoint (with route command)
 ├── prompts/
 │   └── AWESOME_PROMPTS.md        # Curated natural-photo idea and prompt library
 ├── references/                   # Modular domain knowledge (loaded on demand)
@@ -231,11 +312,14 @@ lively-photos-director/
 │   ├── trigger-cases.jsonl       # 20 positive & negative routing cases
 │   └── behavior-cases.jsonl      # 8 behavioral criteria & anti-slop assertions
 ├── scripts/
-│   └── validate_skill.py         # Standard library structural validator
-├── tests/
-│   └── cli.test.ts               # Bun unit test suite for CLI runner
-└── .github/workflows/
-    └── ci.yml                    # Automated GitHub Actions CI workflow
+│   ├── validate_skill.py         # Standard library structural validator
+│   ├── validate_plugin.py        # Dependency-free Codex Plugin preflight validator
+│   └── package_plugin.py         # Deterministic reproducible ZIP packager
+├── .github/
+│   └── workflows/
+│       └── ci.yml                # Automated GitHub Actions CI workflow
+└── tests/
+    └── cli.test.ts               # Bun unit test suite for CLI runner & router
 ```
 
 ---

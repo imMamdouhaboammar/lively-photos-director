@@ -1,0 +1,11 @@
+interface:
+  display_name: "Lively Photos Director"
+  short_description: "Direct human-first photos"
+  brand_color: "#2563EB"
+  default_prompt: "Direct a natural corporate photo from this reference portrait"
+
+policy:
+  products:
+    - "CHAT"
+    - "CODEX"
+  allow_implicit_invocation: true

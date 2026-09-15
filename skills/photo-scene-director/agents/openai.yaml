@@ -1,0 +1,11 @@
+interface:
+  display_name: "Photo Scene Director"
+  short_description: "Direct scene, optics & light"
+  brand_color: "#2563EB"
+  default_prompt: "Direct the scene environment, camera optics, and lighting"
+
+policy:
+  products:
+    - "CHAT"
+    - "CODEX"
+  allow_implicit_invocation: true

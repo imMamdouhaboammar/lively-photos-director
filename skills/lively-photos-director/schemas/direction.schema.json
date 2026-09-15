@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/lively-photos-director/direction.schema.json",
+  "title": "Lively Photos Direction Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mode", "moment", "identity", "environment", "composition", "camera", "lighting", "constraints"],
+  "properties": {
+    "mode": {
+      "enum": ["documentary-corporate", "candid-professional", "editorial-natural", "everyday-lifestyle", "event-documentary"]
+    },
+    "moment": {"type": "string", "minLength": 1},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preserve_recognizable_identity"],
+      "properties": {
+        "preserve_recognizable_identity": {"const": true},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["setting"],
+      "properties": {
+        "setting": {"type": "string", "minLength": 1},
+        "props": {"type": "array", "items": {"type": "string"}},
+        "background": {"type": "string"}
+      }
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary_anchor"],
+      "properties": {
+        "primary_anchor": {"type": "string"},
+        "framing": {"type": "string"},
+        "body_language": {"type": "string"},
+        "gaze": {"type": "string"}
+      }
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lens_feel": {"type": "string"},
+        "height": {"type": "string"},
+        "depth_of_field": {"type": "string"},
+        "distance": {"type": "string"}
+      }
+    },
+    "lighting": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dominant_source": {"type": "string"},
+        "contrast": {"type": "string"},
+        "temperature": {"type": "string"}
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "must_include": {"type": "array", "items": {"type": "string"}},
+        "must_avoid": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "aspect_ratio": {"type": "string"}
+  }
+}

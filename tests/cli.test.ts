@@ -18,7 +18,7 @@ describe("lively-photos-director CLI", () => {
   test("shows version with --version", () => {
     const res = spawnSync("bun", [CLI_PATH, "--version"], { encoding: "utf8" });
     expect(res.status).toBe(0);
-    expect(res.stdout.trim()).toBe("v1.0.0");
+    expect(res.stdout.trim()).toBe("v1.1.0");
   });
 
   test("shows info with info command", () => {
@@ -37,6 +37,25 @@ describe("lively-photos-director CLI", () => {
     expect(res.stdout).toContain("editorial-natural");
     expect(res.stdout).toContain("everyday-lifestyle");
     expect(res.stdout).toContain("event-documentary");
+  });
+
+  test("shows agentic skills suite with skills command", () => {
+    const res = spawnSync("bun", [CLI_PATH, "skills"], { encoding: "utf8" });
+    expect(res.status).toBe(0);
+    expect(res.stdout).toContain("Codex Plugin Agentic Skills Suite");
+    expect(res.stdout).toContain("identity-face-lock");
+    expect(res.stdout).toContain("photo-scene-director");
+    expect(res.stdout).toContain("engine-prompt-compiler");
+    expect(res.stdout).toContain("photo-qa-reviewer");
+  });
+
+  test("routes prompt intelligently with route command", () => {
+    const res = spawnSync("bun", [CLI_PATH, "route", "Direct a candid shot of our CEO in an executive boardroom signing a deal"], { encoding: "utf8" });
+    expect(res.status).toBe(0);
+    expect(res.stdout).toContain("Smart Dynamic Router Decision:");
+    expect(res.stdout).toContain("documentary-corporate");
+    expect(res.stdout).toContain("identity-face-lock");
+    expect(res.stdout).toContain("photo-scene-director");
   });
 
   test("runs validation with validate command", () => {

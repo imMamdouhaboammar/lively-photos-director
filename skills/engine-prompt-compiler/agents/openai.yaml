@@ -1,0 +1,11 @@
+interface:
+  display_name: "Engine Prompt Compiler"
+  short_description: "Compile prompts for engines"
+  brand_color: "#2563EB"
+  default_prompt: "Compile this photography direction for Midjourney and Flux"
+
+policy:
+  products:
+    - "CHAT"
+    - "CODEX"
+  allow_implicit_invocation: true
