@@ -18,21 +18,40 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Run Bun Unit Tests
-        run: |
-          bun test
+      - name: Run Bun unit tests
+        run: bun test
 
-      - name: Verify CLI Execution
+      - name: Verify CLI execution
         run: |
           bun ./bin/cli.js --help
           bun ./bin/cli.js info
           bun ./bin/cli.js modes
+          bun ./bin/cli.js skills
+          bun ./bin/cli.js route "Friend took this randomly from 12 meters away on a normal beach"
+          bun ./bin/cli.js route "Use GPT Image 2.5 for a precision edit and preserve accepted details"
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Validate Skill Structure & Integrity
+      - name: Validate Skill contracts
+        run: python3 scripts/validate_skill.py .
+
+      - name: Validate Codex Plugin package contract
+        run: python3 scripts/validate_plugin.py .
+
+      - name: Build deterministic Plugin archive twice
         run: |
-          python3 scripts/validate_skill.py .
+          rm -f /tmp/lively-photos-director-a.zip /tmp/lively-photos-director-b.zip
+          python3 scripts/package_plugin.py . /tmp/lively-photos-director-a.zip
+          python3 scripts/package_plugin.py . /tmp/lively-photos-director-b.zip
+          cmp /tmp/lively-photos-director-a.zip /tmp/lively-photos-director-b.zip
+          sha256sum /tmp/lively-photos-director-a.zip /tmp/lively-photos-director-b.zip
+
+      - name: Validate a fresh extracted package
+        run: |
+          rm -rf /tmp/lively-photos-director-extracted
+          mkdir -p /tmp/lively-photos-director-extracted
+          unzip -q /tmp/lively-photos-director-a.zip -d /tmp/lively-photos-director-extracted
+          python3 scripts/validate_plugin.py /tmp/lively-photos-director-extracted
