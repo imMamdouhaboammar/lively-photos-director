@@ -1,7 +1,7 @@
 {
   "name": "lively-photos-director",
-  "version": "1.1.0",
-  "description": "Universal AI agent skill for directing photorealistic, believable, human-first images from real-person reference photos",
+  "version": "1.2.0",
+  "description": "Direct believable natural photographs and precise image revisions from real-person reference photos",
   "type": "module",
   "main": "bin/cli.js",
   "bin": {
@@ -49,8 +49,9 @@
     "opencode",
     "bun",
     "image-generation",
-    "prompt-engineering",
-    "photography"
+    "image-editing",
+    "photography",
+    "gpt-image"
   ],
   "author": "Mamdouh Aboammar <https://github.com/imMamdouhaboammar>",
   "license": "MIT",
