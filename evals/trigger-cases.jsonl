@@ -8,6 +8,14 @@
 {"id":"p08","expected":"trigger","input":"Use my reference image and create three believable event photos from the same conference session."}
 {"id":"p09","expected":"trigger","input":"Can you place me in a realistic workspace with normal daylight and make it feel camera-shot?"}
 {"id":"p10","expected":"trigger","input":"I need a natural photo of me walking through an exhibition hall while speaking with a colleague."}
+{"id":"p11","expected":"trigger","input":"Use my face reference but use the jacket from the second photo and the office from the third photo."}
+{"id":"p12","expected":"trigger","input":"Change only my shirt in this generated photo and keep my face, pose, crop, light and background unchanged."}
+{"id":"p13","expected":"trigger","input":"Fix only the malformed right hand in this generated image without changing the rest."}
+{"id":"p14","expected":"trigger","input":"My friend took this randomly from about 12 meters away at a normal Egyptian beach. Keep me small in frame and make it feel like a regular iPhone photo."}
+{"id":"p15","expected":"trigger","input":"Audit this generated portrait for AI-looking skin, hand artifacts and lighting problems."}
+{"id":"p16","expected":"trigger","input":"Compile this accepted photo direction for GPT Image 2.5, but do not generate anything."}
+{"id":"p17","expected":"trigger","input":"Continue editing the last approved image: remove the watch but preserve the shirt change and everything else we already accepted."}
+{"id":"p18","expected":"trigger","input":"I need the pixels outside the hand repair to remain literally unchanged. What edit workflow should I use?"}
 {"id":"n01","expected":"do_not_trigger","input":"Turn my selfie into an anime avatar."}
 {"id":"n02","expected":"do_not_trigger","input":"Create a cyberpunk poster using my face with neon typography."}
 {"id":"n03","expected":"do_not_trigger","input":"Design a social ad with headline, CTA, offer badge, and product packshot."}
@@ -15,6 +23,6 @@
 {"id":"n05","expected":"do_not_trigger","input":"Draw a flat vector illustration of me for my website."}
 {"id":"n06","expected":"do_not_trigger","input":"Create a logo mark based on my portrait."}
 {"id":"n07","expected":"do_not_trigger","input":"Make a surreal image of me floating over Cairo with giant planets."}
-{"id":"n08","expected":"do_not_trigger","input":"Write me a prompt for a 3D metallic product render."}
-{"id":"n09","expected":"do_not_trigger","input":"Retouch this product photo and remove the background."}
+{"id":"n08","expected":"do_not_trigger","input":"Write me a prompt for a 3D metallic product render with no people."}
+{"id":"n09","expected":"do_not_trigger","input":"Retouch this product-only photo and remove the background."}
 {"id":"n10","expected":"do_not_trigger","input":"Create an illustrated campaign key visual with Arabic copy and decorative shapes."}

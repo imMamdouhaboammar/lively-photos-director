@@ -6,8 +6,17 @@
   "additionalProperties": false,
   "required": ["mode", "moment", "identity", "environment", "composition", "camera", "lighting", "constraints"],
   "properties": {
+    "operation": {
+      "enum": ["generate_new_scene", "edit_existing_image", "repair_generated_image", "create_series", "audit_only", "compile_only"]
+    },
     "mode": {
       "enum": ["documentary-corporate", "candid-professional", "editorial-natural", "everyday-lifestyle", "event-documentary"]
+    },
+    "capture_profile": {
+      "enum": ["phone-candid", "documentary-camera", "editorial-camera", "controlled-professional"]
+    },
+    "subject_scale": {
+      "enum": ["close-portrait", "medium", "three-quarter", "full-body", "environmental", "distant-candid"]
     },
     "moment": {"type": "string", "minLength": 1},
     "identity": {
@@ -16,7 +25,30 @@
       "required": ["preserve_recognizable_identity"],
       "properties": {
         "preserve_recognizable_identity": {"const": true},
+        "reference_strength": {"enum": ["strong", "usable", "weak", "conflicting", "multiple-role"]},
         "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "reference_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["asset", "roles"],
+        "properties": {
+          "asset": {"type": "string", "minLength": 1},
+          "roles": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": ["identity", "wardrobe", "product_or_prop", "environment", "composition", "lighting", "style", "background"]
+            }
+          },
+          "strength": {"enum": ["strong", "usable", "weak", "conflicting", "multiple-role"]},
+          "preserve": {"type": "array", "items": {"type": "string"}},
+          "may_change": {"type": "array", "items": {"type": "string"}}
+        }
       }
     },
     "environment": {
@@ -37,7 +69,8 @@
         "primary_anchor": {"type": "string"},
         "framing": {"type": "string"},
         "body_language": {"type": "string"},
-        "gaze": {"type": "string"}
+        "gaze": {"type": "string"},
+        "camera_relationship": {"enum": ["candid", "aware", "posed-natural"]}
       }
     },
     "camera": {
@@ -47,7 +80,8 @@
         "lens_feel": {"type": "string"},
         "height": {"type": "string"},
         "depth_of_field": {"type": "string"},
-        "distance": {"type": "string"}
+        "distance": {"type": "string"},
+        "visible_cues": {"type": "array", "items": {"type": "string"}}
       }
     },
     "lighting": {
@@ -65,6 +99,22 @@
       "properties": {
         "must_include": {"type": "array", "items": {"type": "string"}},
         "must_avoid": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "change_set": {"type": "array", "items": {"type": "string"}},
+    "preserve_set": {"type": "array", "items": {"type": "string"}},
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "family": {"type": "string"},
+        "model": {"type": "string"},
+        "snapshot": {"type": "string"},
+        "quality": {"type": "string"},
+        "size": {"type": "string"},
+        "background": {"type": "string"},
+        "output_format": {"type": "string"},
+        "compression": {"type": "integer", "minimum": 0, "maximum": 100}
       }
     },
     "aspect_ratio": {"type": "string"}
