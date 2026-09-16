@@ -153,8 +153,8 @@ function containsAny(query, terms) {
 }
 
 function detectOperation(query) {
-  const repairIntent = containsAny(query, [
-    'repair', 'fix only', 'fix the', 'malformed', 'deformed', 'extra finger', 'plastic skin', 'artifact'
+  const explicitRepairIntent = containsAny(query, [
+    'repair', 'fix only', 'fix the', 'fix this', 'correct the', 'correct this'
   ]);
   const editIntent = containsAny(query, [
     'edit', 'change only', 'replace only', 'remove the', 'continue editing', 'continue from the approved',
@@ -164,7 +164,7 @@ function detectOperation(query) {
     'audit', 'review', 'qa', 'check this generated', 'check this image', 'check this photo'
   ]);
 
-  if (repairIntent) return 'repair_generated_image';
+  if (explicitRepairIntent) return 'repair_generated_image';
   if (containsAny(query, ['three photos', '3 photos', 'photo series', 'image series', 'same session', 'same meeting', 'photo set'])) return 'create_series';
   if (auditIntent && !editIntent) return 'audit_only';
   if (containsAny(query, ['compile', 'prompt only', 'do not generate', "don't generate"])) return 'compile_only';
