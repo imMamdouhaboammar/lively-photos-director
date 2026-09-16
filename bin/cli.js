@@ -100,24 +100,24 @@ Core Contracts:
 
 function printModes() {
   console.log(`\n📸 Scene Modes:\n`);
-  MODES.forEach((m, idx) => {
-    console.log(`${idx + 1}. [${m.name}]`);
-    console.log(`   Focus:  ${m.focus}`);
-    console.log(`   Cues:   ${m.camera}\n`);
+  MODES.forEach((mode, idx) => {
+    console.log(`${idx + 1}. [${mode.name}]`);
+    console.log(`   Focus:  ${mode.focus}`);
+    console.log(`   Cues:   ${mode.camera}\n`);
   });
 
   console.log(`📱 Capture Profiles:\n`);
-  CAPTURE_PROFILES.forEach((p, idx) => {
-    console.log(`${idx + 1}. [${p.name}]`);
-    console.log(`   ${p.focus}\n`);
+  CAPTURE_PROFILES.forEach((profile, idx) => {
+    console.log(`${idx + 1}. [${profile.name}]`);
+    console.log(`   ${profile.focus}\n`);
   });
 }
 
 function printSkills() {
   console.log(`\n🤖 Codex Plugin Skills (${SKILLS.length} public Skills):\n`);
-  SKILLS.forEach((s, idx) => {
-    console.log(`${idx + 1}. [${s.name}] - ${s.role}`);
-    console.log(`   ${s.description}\n`);
+  SKILLS.forEach((skill, idx) => {
+    console.log(`${idx + 1}. [${skill.name}] - ${skill.role}`);
+    console.log(`   ${skill.description}\n`);
   });
 }
 
@@ -153,11 +153,23 @@ function containsAny(query, terms) {
 }
 
 function detectOperation(query) {
-  if (containsAny(query, ['audit', 'review this image', 'review this photo', 'qa only', 'check this generated'])) return 'audit_only';
-  if (containsAny(query, ['compile', 'prompt only', 'do not generate', "don't generate"])) return 'compile_only';
+  const repairIntent = containsAny(query, [
+    'repair', 'fix only', 'fix the', 'malformed', 'deformed', 'extra finger', 'plastic skin', 'artifact'
+  ]);
+  const editIntent = containsAny(query, [
+    'edit', 'change only', 'replace only', 'remove the', 'continue editing', 'continue from the approved',
+    'keep my face', 'preserve the rest'
+  ]);
+  const auditIntent = containsAny(query, [
+    'audit', 'review', 'qa', 'check this generated', 'check this image', 'check this photo'
+  ]);
+
+  if (repairIntent) return 'repair_generated_image';
   if (containsAny(query, ['three photos', '3 photos', 'photo series', 'image series', 'same session', 'same meeting', 'photo set'])) return 'create_series';
-  if (containsAny(query, ['repair', 'fix only', 'malformed', 'deformed', 'extra finger', 'plastic skin', 'artifact'])) return 'repair_generated_image';
-  if (containsAny(query, ['edit', 'change only', 'replace only', 'remove the', 'continue editing', 'continue from the approved', 'keep my face', 'preserve the rest'])) return 'edit_existing_image';
+  if (auditIntent && !editIntent) return 'audit_only';
+  if (containsAny(query, ['compile', 'prompt only', 'do not generate', "don't generate"])) return 'compile_only';
+  if (editIntent) return 'edit_existing_image';
+  if (auditIntent) return 'audit_only';
   return 'generate_new_scene';
 }
 
@@ -200,7 +212,8 @@ function detectOpenAIModel(query, operation, engine) {
   if (query.includes('flare')) return 'gpt-image-2.5-flare';
 
   const precisionSensitive = containsAny(query, [
-    'precision', 'preserve', 'exact', 'difficult', 'cannot drift', "can't drift", 'multi-turn', 'continue editing', 'pixel-identical', 'pixel identical'
+    'precision', 'preserve', 'exact', 'difficult', 'cannot drift', "can't drift", 'multi-turn',
+    'continue editing', 'pixel-identical', 'pixel identical'
   ]);
   const demandingQuality = containsAny(query, ['demanding quality', 'highest quality', 'quality matters most']);
 
@@ -274,7 +287,7 @@ Preservation:     ${preservation}
 QA Boundary:      ${qa}
 
 Dispatched Skills:
-${skills.map((s, idx) => `  ${idx + 1}. [${s}]`).join('\n')}
+${skills.map((skill, idx) => `  ${idx + 1}. [${skill}]`).join('\n')}
 
 Notes:
   • Scene mode says what is happening; capture profile says how it feels photographed.
@@ -310,7 +323,7 @@ function main() {
     default:
       console.error(`Unknown command: ${cmd}`);
       printHelp();
-      process.exit(1);
+      process.exitCode = 1;
   }
 }
 

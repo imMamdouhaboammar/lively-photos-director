@@ -19,16 +19,16 @@
       "Direct believable new photographs from real-person reference images and casual scene ideas",
       "Map multiple reference images by identity, wardrobe, environment, composition, lighting, style, background, or prop role",
       "Separate scene mode, capture profile, subject scale, camera cues, and lighting into an engine-neutral direction packet",
-      "Compile GPT Image 2.5 Flare or Sunburst generation and editing packets with model, quality, size, background, and format controls kept separate from prompt prose",
+      "Compile GPT Image 2.5 generation/edit packets with model and output controls separate from prompt prose",
       "Define bounded edits with explicit CHANGE and PRESERVE sets, including multi-turn continuity requirements",
-      "Review actual generated images against likeness, anatomy, perspective, lighting, context, synthetic-residue, and edit-drift gates",
+      "Review generated images for likeness, anatomy, perspective, lighting, context, residue, and edit drift",
       "Direct consistent photo series while varying shot size, camera relationship, and moment deliberately",
       "Use host-native workspace capabilities for reference and output asset operations when the host provides them"
     ],
     "defaultPrompt": [
       "Use this reference photo to direct a believable partnership-signing image that feels naturally photographed, not staged",
       "Make this look like a friend photographed me from far away on an ordinary beach with a normal phone camera feel",
-      "Change only the shirt in this generated photo and preserve my visible appearance, expression, pose, crop, lighting, and background"
+      "Change only the shirt and preserve my visible appearance, expression, pose, crop, lighting, and background"
     ],
     "brandColor": "#2563EB",
     "brandColorDark": "#60A5FA",

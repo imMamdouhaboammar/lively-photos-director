@@ -96,6 +96,29 @@ describe("lively-photos-director CLI", () => {
     expect(res.stdout).toContain("No image execution or visual QA claim");
   });
 
+  test("routes generic review wording to audit only", () => {
+    const res = run("route", "Review the generated portrait for artifacts");
+    expect(res.status).toBe(0);
+    expect(res.stdout).toContain("Operation:        audit_only");
+    expect(res.stdout).toContain("photo-qa-reviewer");
+    expect(res.stdout).not.toContain("photo-scene-director");
+  });
+
+  test("routes generic QA wording to audit only", () => {
+    const res = run("route", "QA my photo for lighting and anatomy");
+    expect(res.status).toBe(0);
+    expect(res.stdout).toContain("Operation:        audit_only");
+    expect(res.stdout).toContain("photo-qa-reviewer");
+  });
+
+  test("routes combined audit and repair as repair", () => {
+    const res = run("route", "Audit this generated photo and fix only the malformed right hand");
+    expect(res.status).toBe(0);
+    expect(res.stdout).toContain("Operation:        repair_generated_image");
+    expect(res.stdout).toContain("photo-qa-reviewer");
+    expect(res.stdout).toContain("engine-prompt-compiler");
+  });
+
   test("routes audit-only request without generation skills", () => {
     const res = run("route", "Audit this generated photo for anatomy and lighting problems");
     expect(res.status).toBe(0);

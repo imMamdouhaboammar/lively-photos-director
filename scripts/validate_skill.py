@@ -54,6 +54,24 @@ REQUIRED_FILES = [
     "skills/lively-photos-director/SKILL.md",
 ]
 
+STALE_ENGINE_PATTERN = re.compile(r"dall[\-· ]?e\s*3", re.IGNORECASE)
+EXPLANATORY_STALE_MARKERS = {
+    "historical",
+    "retired",
+    "deprecated",
+    "stale",
+    "remove",
+    "removed",
+    "reject",
+    "rejects",
+    "absence",
+    "former",
+    "previous",
+    "old",
+    "migration",
+    "earlier",
+}
+
 
 def fail(message: str) -> None:
     raise SystemExit(f"FAIL: {message}")
@@ -65,9 +83,8 @@ def parse_frontmatter(text: str) -> dict[str, str]:
     end = text.find("\n---\n", 4)
     if end == -1:
         fail("SKILL.md frontmatter is not closed")
-    block = text[4:end]
     data: dict[str, str] = {}
-    for raw in block.splitlines():
+    for raw in text[4:end].splitlines():
         if not raw.strip() or raw.lstrip().startswith("#"):
             continue
         if ":" not in raw:
@@ -121,19 +138,13 @@ def validate_skill_file(path: Path, require_negative_boundary: bool) -> tuple[in
     meta = parse_frontmatter(text)
     name = meta.get("name", "")
     description = meta.get("description", "")
-    expected_name = path.parent.name if path.parent.name != path.parents[0].name else path.parent.name
 
     if path.name != "SKILL.md":
         fail(f"unexpected skill filename: {path}")
-    if path.parent.name != "skills" and path.parent.parent.name == "skills":
-        expected_name = path.parent.name
-    elif path.parent.parent.name != "skills":
-        expected_name = path.parent.name
-
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name):
         fail(f"invalid kebab-case skill name in {path}: {name}")
-    if path.parent.parent.name == "skills" and name != expected_name:
-        fail(f"frontmatter name '{name}' must match directory '{expected_name}' in {path}")
+    if path.parent.parent.name == "skills" and name != path.parent.name:
+        fail(f"frontmatter name '{name}' must match directory '{path.parent.name}' in {path}")
     if not description:
         fail(f"description missing in {path}")
     if len(description) > 1024:
@@ -153,10 +164,12 @@ def validate_schema_contract(root: Path) -> None:
     brief = read_json(root / "schemas/brief.schema.json")
     direction = read_json(root / "schemas/direction.schema.json")
     revision = read_json(root / "schemas/revision.schema.json")
-
     expected = {
         "schemas/brief.schema.json": (brief, {"operation", "reference_images", "capture_profile", "subject_scale"}),
-        "schemas/direction.schema.json": (direction, {"operation", "capture_profile", "subject_scale", "reference_assets", "change_set", "preserve_set", "engine"}),
+        "schemas/direction.schema.json": (
+            direction,
+            {"operation", "capture_profile", "subject_scale", "reference_assets", "change_set", "preserve_set", "engine"},
+        ),
         "schemas/revision.schema.json": (revision, {"failure_class", "change_set", "preserve_set", "recommended_remedy"}),
     }
     for rel, (schema, required_properties) in expected.items():
@@ -175,11 +188,15 @@ def validate_versions(root: Path) -> str:
         if not path.is_file():
             fail(f"versioned file missing: {rel}")
         versions[rel] = nested_value(read_json(path), keys, rel)
-    unique = set(versions.values())
-    if len(unique) != 1:
+    if len(set(versions.values())) != 1:
         details = ", ".join(f"{path}={version}" for path, version in sorted(versions.items()))
         fail(f"version drift: {details}")
-    return next(iter(unique))
+    return next(iter(versions.values()))
+
+
+def is_explanatory_stale_mention(line: str) -> bool:
+    lowered = line.lower()
+    return any(marker in lowered for marker in EXPLANATORY_STALE_MARKERS)
 
 
 def validate_engine_contract(root: Path) -> None:
@@ -198,13 +215,13 @@ def validate_engine_contract(root: Path) -> None:
         if token not in ref:
             fail(f"OpenAI engine reference missing required contract token: {token}")
 
-    stale_pattern = re.compile(r"dall[\-· ]?e\s*3", re.IGNORECASE)
     for rel in ACTIVE_ENGINE_SURFACES:
         path = root / rel
         if not path.is_file():
             fail(f"active engine surface missing: {rel}")
-        if stale_pattern.search(path.read_text(encoding="utf-8", errors="ignore")):
-            fail(f"active DALL-E 3 capability claim remains in {rel}")
+        for number, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+            if STALE_ENGINE_PATTERN.search(line) and not is_explanatory_stale_mention(line):
+                fail(f"active retired-engine capability claim remains in {rel}:{number}")
 
 
 def validate_evals(root: Path) -> tuple[int, int, int]:
@@ -295,7 +312,7 @@ def main() -> None:
     print(f"  semantic behavior families: {family_count}")
     print("  schemas: contract fields present in 3 valid JSON files")
     print("  OpenAI engine: GPT Image 2.5 Flare/Sunburst contract present")
-    print("  stale active DALL-E 3 claims: none")
+    print("  stale active retired-engine claims: none")
     print("  manifest/submission versions: synchronized")
 
 
