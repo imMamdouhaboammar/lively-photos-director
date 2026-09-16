@@ -1,248 +1,357 @@
 # Direction Rules
 
-Use this reference to turn a loose user idea into a camera-plausible scene.
+Use this reference to turn a loose request into an engine-neutral photographic direction packet.
 
-## 1. Intent extraction
+## 1. Capture only decisions that change the result
 
-Capture only the fields that materially affect the photo:
+Useful fields:
 
 - `subject_count`
 - `primary_action`
 - `setting`
-- `mode`
+- `scene_mode`
+- `capture_profile`
+- `subject_scale`
+- explicit camera distance when supplied
 - `formality`
-- `camera_relationship`: candid, aware of camera, or posed-natural
-- `intended_use`: profile, social, PR, event coverage, announcement, editorial, other
+- `camera_relationship`: candid, aware, posed-natural
+- `intended_use`
+- background importance
+- movement
+- hands/object interaction
+- available/requested light
 - `must_include`
 - `must_avoid`
 
-If information is missing, choose the least surprising option that makes the scene coherent. Ask a question only when two plausible interpretations would materially change the output.
+Do not ask for photography vocabulary the user does not need to know. Infer the least surprising value when only one interpretation fits the job.
 
-## 2. Mode selection
+## 2. Reference evidence
 
-### documentary-corporate
+Every supplied image should have a role before it reaches the engine compiler.
 
-Use for meetings, partnership announcements, signing moments, executive work, boardrooms, institutional environments, and professional PR.
+Roles:
 
-Default behavior:
+- `identity`
+- `wardrobe`
+- `product_or_prop`
+- `environment`
+- `composition`
+- `lighting`
+- `style`
+- `background`
 
-- clear environmental context
-- medium depth of field
+### Reference strength
+
+`strong`: the visible traits needed for the assigned role are clear
+
+`usable`: enough evidence for a reasonable attempt with some uncertainty
+
+`weak`: blur, tiny subject, occlusion, filter, crop, or angle removes important evidence
+
+`conflicting`: references assigned to the same role disagree on a material detail
+
+`multiple-role`: different images intentionally own different evidence roles
+
+### Visible-person preservation
+
+For an identity-role reference, preserve visible stable appearance supported by the source:
+
+- overall facial proportions and recognizable appearance
+- eye/nose/mouth relationships visible at the source quality
+- skin tone and age impression
+- hairline/hairstyle, facial hair, or head covering when stable
+- distinctive visible traits that are not temporary source artifacts
+
+Do not preserve automatically:
+
+- source background
+- exact source pose
+- temporary lighting cast
+- camera distortion
+- sharpening/filter artifacts
+- details hidden by occlusion
+
+Never identify an unknown person from appearance or infer sensitive traits.
+
+For weak references, be conservative. Prefer a scene angle compatible with visible evidence and avoid promises of exact likeness.
+
+## 3. Scene mode: what is happening
+
+### `documentary-corporate`
+
+Use for meetings, partnerships, signings, institutional work, executive PR, or office decisions.
+
+Bias:
+
+- readable environment
 - restrained branding
-- task-appropriate body language
+- task-led posture
 - low visual drama
-- believable office or venue light
+- plausible office/venue illumination
 
-### candid-professional
+### `candid-professional`
 
-Use for working, explaining, reviewing, talking with colleagues, writing, walking through a workspace, or professional social content that should feel unstaged.
+Use for working, explaining, reviewing, collaborating, whiteboards, or professional moments that should feel unstaged.
 
-Default behavior:
+Bias:
 
+- observer relationship
 - off-center or lightly asymmetrical framing
-- subject engaged in a real task
-- camera behaves like an observer
-- expression follows the task, not the camera
+- expression follows the task
+- props only when used
 
-### editorial-natural
+### `editorial-natural`
 
-Use when the user wants a refined personal brand image that still reads as a photograph.
+Use for refined personal-brand/profile photography that must still read as a real photograph.
 
-Default behavior:
+Bias:
 
-- simpler environment
-- more deliberate framing
-- softer background separation
-- subtle grooming and wardrobe control
-- no high-fashion exaggeration unless requested
+- deliberate framing
+- controlled but natural light
+- useful negative space where needed
+- restrained grooming and background separation
 
-### everyday-lifestyle
+### `everyday-lifestyle`
 
-Use for cafes, streets, home, travel, casual work, or daily-life scenes.
+Use for cafes, streets, home, beach, travel, commuting, and daily life.
 
-Default behavior:
+Bias:
 
-- available-light feel
-- ordinary environmental details
+- ordinary environmental evidence
 - relaxed posture
-- imperfect but clean composition
+- available-light character
+- imperfection appropriate to capture profile
 
-### event-documentary
+### `event-documentary`
 
-Use for conferences, panels, launches, workshops, networking, talks, or awards.
+Use for conferences, panels, launches, workshops, networking, talks, awards, and exhibition floors.
 
-Default behavior:
+Bias:
 
 - visible event context
-- credible crowd density
-- practical event lighting
-- reaction and gesture over posed smiles
-- stage screens and signage kept secondary unless essential
+- believable crowd density/behavior
+- practical venue lighting
+- gestures/reactions over camera-facing smiles
 
-## 3. Identity fidelity
+## 4. Capture profile: how it feels photographed
 
-Treat the reference photo as evidence of identity.
+### `phone-candid`
 
-Preserve:
+Use when a friend/colleague/attendee casually took the image or the user explicitly wants ordinary phone photography.
 
-- facial proportions
-- eye spacing and shape
-- nose and mouth geometry
-- jaw and cheek structure
-- skin tone
-- age impression
-- hairline, hairstyle, facial hair, or head covering when stable in the reference
-- distinctive visible traits that are not temporary artifacts
+Visible cues:
 
-Do not automatically preserve:
+- normal smartphone depth, not exaggerated portrait blur
+- modest dynamic range
+- casual camera height
+- small framing imperfections that make sense
+- ordinary sharpness/detail for subject distance
+- environmental clutter left when it belongs to the scene
 
-- exact pose
-- exact crop
-- temporary lighting cast
-- camera distortion from the source photo
-- background
-- low-quality sharpening artifacts
+Do not add fake low quality. Casual is not damaged.
 
-### Weak reference handling
+### `documentary-camera`
 
-If the face is tiny, blurred, heavily occluded, over-filtered, or only visible from an extreme angle:
+Use for intentional observer coverage.
 
-1. use the visible traits conservatively
-2. avoid pretending exact identity fidelity is guaranteed
-3. prefer a scene angle close to what the reference supports
-4. request an additional reference only if fidelity is central and the current source is insufficient
+Visible cues:
 
-### Identity safety
+- action/context priority
+- moderate separation
+- practical exposure
+- stable geometry
+- no beauty-shoot posing
 
-- Never identify an unknown real person from appearance
-- If the user supplies a name, treat it as user-provided context, not visual verification
-- Do not invent age, ethnicity, occupation, religion, or other personal attributes from appearance
+### `editorial-camera`
 
-## 4. Body language
+Use for deliberate authored portrait/profile work.
 
-Body language must explain the activity.
+Visible cues:
 
-Good examples:
+- intentional frame geometry
+- controlled natural contrast
+- purposeful negative space
+- stronger but still credible subject separation
 
-- signing: one hand stabilizes the folder, one hand signs, eyes alternate naturally between paper and camera depending on the moment
-- presenting: torso oriented toward audience or screen, one hand gesturing, weight balanced naturally
-- meeting: shoulders turned toward another person or document, hands resting or gesturing, not both people staring rigidly at camera
-- walking: natural stride phase, arms offset, clothing responding to motion
-- desk work: wrists and elbows supported plausibly, screen and chair position physically usable
+### `controlled-professional`
 
-Avoid:
+Use for planned professional images that should look clean without looking synthetic.
 
-- both hands floating without a task
-- fingers hidden in implausible ways just to avoid anatomy
-- identical poses across multiple people
-- rigid shoulders with a casual expression
-- everyone looking directly at camera in a candid scene
+Visible cues:
 
-## 5. Camera grammar
+- stable framing
+- simple planned light
+- controlled posture
+- clean environment with normal material detail
 
-Use the simplest lens choice that fits the scene.
+## 5. Subject scale and distance
 
-| Situation | Lens feel | Camera position | Depth of field |
-|---|---|---|---|
-| room, meeting, signing | 35mm to 50mm | eye level or slightly elevated | moderate |
-| professional portrait | 50mm to 85mm | eye level | moderate to shallow |
-| event coverage | 35mm to 70mm | observer height | moderate |
-| lifestyle environment | 35mm to 50mm | human eye level | moderate |
-| detail with face context | 70mm to 100mm | task height | shallow but not extreme |
+`close-portrait`: face/shoulders are the dominant information
 
-Avoid wide-angle face distortion, impossible room geometry, ultra-shallow blur that erases context, and dramatic low-angle hero shots unless the user explicitly asks for them.
+`medium`: upper body plus immediate task context
 
-## 6. Lighting grammar
+`three-quarter`: broader posture/body language
 
-Choose one dominant lighting logic.
+`full-body`: feet, ground contact, clothing drape, and stance all matter
 
-### Indoor office
+`environmental`: place is a major part of the story
 
-- neutral daylight or soft overhead ambient
-- gentle face fill
-- moderate contrast
-- screens should not cast impossible blue light across the whole scene
+`distant-candid`: subject is relatively small and local detail naturally decreases
 
-### Window-lit
+If the user specifies distance, honor it. At 7 to 15 meters, do not render close-up facial detail or portrait-depth behavior that contradicts the camera relationship.
 
-- one obvious directional source
-- believable shadow falloff
-- background exposure within plausible range
+## 6. Body language
+
+Body language should explain the activity.
+
+- signing: document/contact/pen logic is plausible
+- presenting: gesture connects speaker, audience, and any actually used screen
+- meeting: gaze/shoulders relate to people or task, not all to camera
+- walking: stride phase, arm swing, balance, clothing motion agree
+- desk work: chair/screen/wrist/elbow geometry is usable
+- beach/cafe/street candid: relaxed asymmetry is acceptable, anatomy is not optional
+
+Avoid hiding every difficult hand. Hide a hand only when framing/action naturally does so.
+
+## 7. Camera grammar
+
+Describe visible output, not fictitious physical certainty.
+
+Useful cues:
+
+| Situation | Perspective cue | Focus/context cue |
+| --- | --- | --- |
+| meeting/signing | 35mm to 50mm-style environmental/natural perspective | moderate depth; room remains readable |
+| portrait/profile | 50mm to 85mm-style normal portrait perspective | moderate or shallow context separation |
+| event | observer perspective from realistic audience/venue position | moderate focus separation |
+| lifestyle | human/phone-level environmental perspective | context generally readable |
+| distant candid | long working distance and small subject scale | ordinary detail falloff; avoid fake extreme bokeh |
+
+Numeric lens/aperture values may be used as creative shorthand when the user asks for them. They are not guarantees that a generative model simulates exact optics.
+
+## 8. Lighting grammar
+
+Select one dominant logic.
+
+### Outdoor daylight
+
+- sky/sun relationship explains facial exposure and ground shadows
+- weather character matches user-provided context
+- avoid unexplained fill/rim sources
+
+### Office
+
+- window daylight and/or neutral practical ambient
+- screen light remains local
+- highlights/shadows respect fixtures/windows
+
+### Window interior
+
+- visible directional source
+- realistic falloff
+- background exposure remains plausible
 
 ### Event
 
-- practical venue lighting
-- stage spill only where physically justified
-- mixed color temperatures allowed if the venue would actually have them
+- practical venue/stage sources
+- mixed temperatures allowed when physically credible
+- no synthetic neon wash unless the venue actually has it
 
-### Editorial-natural
+### Phone candid
 
-- soft directional key
-- subtle fill
-- restrained contrast
-- realistic catchlights
+- accept normal imperfect exposure balance
+- do not invent studio fill just to beautify the face
 
-Avoid arbitrary rim lights, glow around the subject, fake volumetric beams, and skin highlights that do not match the room.
+## 9. Ordinary environment rules
 
-## 7. Composition rules
+The user may intentionally want a place that is not aspirational.
 
-Start with one focal anchor.
+### Beach
 
-Useful structures:
+Possible credible details when requested/contextually appropriate:
 
-### A. Context sandwich
+- normal sand texture with footprints/towels/bags
+- simple or mismatched umbrellas/chairs
+- families/beachgoers at believable scale
+- ordinary sea color/weather rather than tropical fantasy
+- small waves and normal shoreline clutter
 
-Foreground object or edge -> person -> contextual background
+### Cafe
 
-Use for desks, signing, working, presentations, and event coverage.
+- practical chairs/tables
+- ordinary cups/bags/phones only when people use them
+- mixed customer background
+- avoid influencer-table styling by default
 
-### B. Controlled symmetry
+### Office/workplace
 
-Balanced left and right framing with small human asymmetries.
+- actual working distances
+- usable furniture
+- restrained screens/documents
+- practical cables/wear/storage where visible and appropriate
 
-Use for formal partnership, institutional, and signing scenes.
+### Conference/event
 
-Do not mirror every object perfectly.
+- attendee spacing and sightlines make sense
+- badges/signage only when justified
+- stage/booth light comes from believable fixtures
 
-### C. Observer asymmetry
+Context should come from the request, not stereotypes about nationality, class, religion, profession, or appearance.
 
-Subject sits on a third, action moves into open space, context remains readable.
+## 10. Composition patterns
 
-Use for candid professional and lifestyle scenes.
+Use one primary focal anchor.
 
-### D. Editorial negative space
+`context sandwich`: foreground edge/object -> subject/action -> contextual background
 
-Subject occupies one side or lower portion while clean space supports a profile, article, or social crop.
+`observer asymmetry`: subject off-center, action flows into open space
 
-Use when the user needs room for later layout, but do not add text unless asked.
+`controlled symmetry`: formal structural balance with human/object asymmetry retained
 
-## 8. Corporate documentary pattern
+`editorial negative space`: deliberate clean area for later layout without embedding copy
 
-Generalized from strong partnership photography:
+`distant candid`: environment takes more frame area and minor foreground interruption may be natural
 
-- landscape frame when the environment matters
-- one to three people in the lower-middle region
-- contextual proof centered or slightly offset behind them
-- vertical architecture, flags, panels, or furniture can frame edges when naturally present
-- desk or document plane can anchor the foreground
-- 60 to 70 percent neutral values, with restrained brand or contextual color accents
-- natural 50mm-style perspective
-- soft office or daylight-balanced illumination around 5000K to 5600K when that matches the space
-- medium depth of field, approximately the visual character of f/5.6 to f/8 in a room scene
-- straight lines and believable distances
+Every major prop must answer: why is it here?
 
-The pattern is structural. Never copy the original room, people, logos, or proprietary composition exactly.
+## 11. Natural imperfection
 
-## 9. Context credibility
+Use imperfection only where the capture profile calls for it.
 
-Every major object must answer: why is this here?
+Good candidates:
 
-Examples:
+- slight off-centering
+- ordinary clutter
+- normal posture variation
+- modest exposure imbalance
+- plausible motion softness
+- peripheral foreground intrusion
 
-- partnership signing -> folders, pens, meeting table, contextual screen or wall mark
-- product review -> product, desk or counter, believable hand interaction
-- conference talk -> stage, mic if needed, event screen, audience implied or visible
-- working session -> laptop, notebook, collaborator, screen only if used
-- casual coffee scene -> cup, table, window or cafe context, no random business props
+Bad candidates:
 
-If an object does not help the viewer understand the moment, omit it.
+- deliberate anatomical error
+- extreme noise/compression
+- arbitrary crooked horizon
+- fake lens dirt
+- excessive blur
+- invented low-resolution artifacts
+
+## 12. Direction output
+
+Return an engine-neutral packet:
+
+```text
+scene_mode
+capture_profile
+subject_scale
+moment
+environment
+composition
+body_language
+camera_cues
+lighting
+reference_contract
+constraints
+```
+
+Model/quality/size/format belong to the engine compiler, not here.
