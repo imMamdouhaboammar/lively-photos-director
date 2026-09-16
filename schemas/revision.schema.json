@@ -6,10 +6,35 @@
   "additionalProperties": false,
   "required": ["problem", "evidence", "change", "protected_regions", "success_check"],
   "properties": {
+    "failure_class": {
+      "enum": ["prompt_ambiguity", "reference_weakness", "wrong_model_choice", "insufficient_quality_setting", "composition_problem", "likeness_drift", "anatomical_defect", "lighting_inconsistency", "context_defect", "local_artifact", "multi_turn_drift", "engine_limitation"]
+    },
+    "operation": {
+      "enum": ["local_edit", "masked_local_edit", "whole_image_edit", "reroute_model", "adjust_quality", "external_composite", "regenerate"]
+    },
     "problem": {"type": "string", "minLength": 1},
     "evidence": {"type": "string", "minLength": 1},
     "change": {"type": "string", "minLength": 1},
+    "change_set": {"type": "array", "items": {"type": "string"}},
+    "preserve_set": {"type": "array", "items": {"type": "string"}},
     "protected_regions": {"type": "array", "items": {"type": "string"}},
+    "target_region": {"type": "string"},
+    "recommended_remedy": {
+      "enum": ["clarify_instruction", "local_edit", "masked_local_edit", "whole_image_edit", "redesign_direction", "reroute_model", "adjust_quality", "external_composite", "regenerate"]
+    },
+    "qa_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate", "status"],
+        "properties": {
+          "gate": {"type": "string"},
+          "status": {"enum": ["PASS", "FAIL", "UNVERIFIED"]},
+          "observation": {"type": "string"}
+        }
+      }
+    },
     "success_check": {"type": "string", "minLength": 1}
   }
 }

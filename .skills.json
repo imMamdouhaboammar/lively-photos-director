@@ -1,8 +1,8 @@
 {
   "$schema": "https://skills.sh/schema.json",
   "name": "lively-photos-director",
-  "version": "1.0.0",
-  "description": "Direct believable, natural, human-first photos from real-person reference photos",
+  "version": "1.2.0",
+  "description": "Direct believable natural photographs and precise image revisions from real-person reference photos",
   "repository": "https://github.com/imMamdouhaboammar/lively-photos-director",
   "author": "Mamdouh Aboammar",
   "license": "MIT",
@@ -10,8 +10,9 @@
   "tags": [
     "agent-skill",
     "image-generation",
+    "image-editing",
     "photography",
-    "prompt-engineering",
+    "gpt-image",
     "claude-code",
     "gemini-cli",
     "antigravity"

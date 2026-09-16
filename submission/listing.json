@@ -1,28 +1,28 @@
 {
   "name": "Lively Photos Director",
-  "subtitle": "Direct human-first photos",
-  "description": "Lively Photos Director directs photorealistic, believable, human-first images from real-person reference photos. Powered by a Smart Dynamic Router and specialized agentic skills, it preserves natural subject likeness and authentic skin texture while calculating optical camera parameters, coherent physical lighting, and realistic context across corporate documentary, candid professional, editorial, event, and everyday lifestyle modes. It compiles engine-optimized prompts for ChatGPT/DALL-E 3, Midjourney, Flux.1, and SDXL, and runs closed-loop visual QA against 6 realism gates with surgical delta inpainting repair.",
+  "subtitle": "Direct natural photos",
+  "description": "Lively Photos Director turns real-person reference photos and casual scene ideas into directions for believable photography, new-image generation, precise edits, consistent photo series, and visual QA. It separates scene mode from capture character, maps multiple reference images by role, keeps engine request parameters separate from prompt prose, and includes first-class GPT Image 2.5 Flare and Sunburst generation/editing guidance with explicit change and preserve boundaries. Image approval is based on actual output evidence when the host can inspect it.",
   "category": "Creativity",
   "developerName": "Mamdouh Aboammar",
   "websiteURL": "https://github.com/imMamdouhaboammar/lively-photos-director",
   "customerSupportURL": "https://github.com/imMamdouhaboammar/lively-photos-director/issues",
   "privacyPolicyURL": "https://github.com/imMamdouhaboammar/lively-photos-director/blob/main/SECURITY.md",
   "termsOfServiceURL": "https://github.com/imMamdouhaboammar/lively-photos-director/blob/main/LICENSE",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "packageName": "lively-photos-director",
   "capabilities": [
-    "Smart dynamic routing across photographic modes, scene direction, prompt compilation, and visual QA",
-    "Natural subject likeness and authentic skin texture preservation without plastic AI airbrushing",
-    "Photographic scene direction with precise focal length, aperture, and depth-of-field optics",
-    "Physical lighting coherence aligning key light, window daylight, shadows, and eye catchlights",
-    "Multi-engine prompt compilation tailored for Midjourney v6, Flux.1, ChatGPT/DALL-E 3, and SDXL",
-    "6-Gate realism quality audit detecting anatomical, optical, lighting, and synthetic slop defects",
-    "Surgical delta revision instructions for bounded inpainting fixes without full prompt regeneration",
-    "Host-native workspace operations for inspecting reference photos and verifying output assets"
+    "Direct believable new photographs from real-person reference images and casual scene ideas",
+    "Map multiple reference images by identity, wardrobe, environment, composition, lighting, style, background, or prop role",
+    "Separate scene mode, capture profile, subject scale, camera cues, and lighting into an engine-neutral direction packet",
+    "Compile GPT Image 2.5 Flare or Sunburst generation and editing packets with model and output controls separate from prompt prose",
+    "Define bounded edits with explicit CHANGE and PRESERVE sets, including multi-turn continuity requirements",
+    "Review actual generated images against likeness, anatomy, perspective, lighting, context, synthetic-residue, and edit-drift gates",
+    "Direct consistent photo series while varying shot size, camera relationship, and moment deliberately",
+    "Use host-native workspace capabilities for reference and output asset operations when the host provides them"
   ],
   "starterPrompts": [
-    "Direct a natural corporate documentary photo of our CEO in an executive boardroom from this reference",
-    "Direct an editorial natural outdoor magazine profile preserving subject likeness from this portrait",
-    "Audit this generated photo against the 6 realism gates and generate a surgical delta inpainting prompt"
+    "Use this reference photo to direct a believable partnership-signing image that feels naturally photographed, not staged",
+    "Make this look like a friend photographed me from far away on an ordinary beach with a normal phone camera feel",
+    "Change only the shirt in this generated photo and preserve my visible appearance, expression, pose, crop, lighting, and background"
   ]
 }

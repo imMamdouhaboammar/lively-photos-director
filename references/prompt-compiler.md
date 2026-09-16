@@ -1,97 +1,261 @@
-# Prompt Compiler
+# Portable Prompt and Execution Compiler
 
-Compile the direction into a concise instruction for an image generation or image editing tool.
+Use this reference after scene direction is accepted. It defines the portable execution packet before any engine adapter applies vendor-specific syntax or request fields.
 
-## Required blocks
+## 1. Keep four layers separate
 
-Use this order because it preserves priority:
+### Photographic intent
 
-1. identity reference
-2. photographic intent
-3. moment and action
-4. environment and justified context
-5. composition and body language
-6. camera behavior
-7. lighting
-8. material and skin realism
-9. hard constraints
+What image should exist: person, moment, environment, framing, capture character, light, realism.
 
-## Template
+### Reference map
 
-```text
-Use the supplied image as the identity reference for the primary person. Preserve the person's recognizable facial structure, skin tone, age impression, hair or head covering, and stable distinctive traits. Do not turn the person into a generic model.
+Which supplied asset contributes identity, wardrobe, prop, environment, composition, lighting, style, or background evidence.
 
-Create a realistic natural photograph, not a poster, illustration, or glossy synthetic render.
+### Request parameters
 
-Moment:
-[one-sentence description of the exact moment and primary action]
+Structured engine controls such as model, quality, size, background, output format, compression, seed, or other supported fields.
 
-Environment:
-[credible location, only story-bearing props, people, architecture, or branding]
+### Prompt body
 
-Composition and body language:
-[primary focal anchor, framing structure, gaze, hands, posture, foreground/background relationship]
+Natural-language instruction describing the visible result and change/preserve constraints.
 
-Camera:
-[lens feel, camera height, framing distance, depth of field, perspective behavior]
+Do not merge request parameters into prompt prose when the engine/host exposes real fields.
 
-Lighting:
-[dominant source, fill behavior, contrast, color temperature character]
+## 2. Portable execution packet
 
-Realism:
-Keep natural skin texture, plausible fabric folds, realistic hands, physically consistent shadows and reflections, believable room geometry, and restrained detail. Allow small natural asymmetries and normal environmental imperfection.
+Use this logical shape where structured output helps:
 
-Avoid:
-[only the failure modes relevant to this scene]
-
-The final result should plausibly look like a real photograph captured in that moment.
+```json
+{
+  "operation": "generate_new_scene",
+  "engine": "openai-gpt-image",
+  "model": "gpt-image-2.5-flare",
+  "request_parameters": {
+    "quality": "auto",
+    "size": "auto",
+    "background": "auto",
+    "output_format": "png"
+  },
+  "references": [],
+  "direction": {},
+  "change": [],
+  "preserve": [],
+  "constraints": []
+}
 ```
 
-## Prompt compression rules
+The exact fields sent to a host/API must match that host's current contract. This packet is the behavioral handoff, not a promise that every host accepts this exact JSON.
 
-- Prefer nouns and physical relationships over strings of style adjectives
-- Do not repeat "realistic", "natural", or "photographic" more than needed
-- Do not specify lens, aperture, shutter, ISO, and sensor unless each materially affects the scene
-- Do not include unrelated negative prompts
-- Do not request perfect symmetry, flawless skin, or impossible sharpness
-- Do not add text, logos, or readable signage unless supplied or essential
+## 3. Reference-map rules
 
-## Editing an existing photo vs generating a new scene
+For each asset emit:
 
-### Existing-photo edit
-
-When the requested change is local, protect everything outside the requested area. State exactly what may change and what must remain fixed.
+- stable asset identifier
+- role(s)
+- evidence to use
+- details allowed to change
+- strength/conflict note when relevant
 
 Example:
 
 ```text
-Keep the person's face, pose, crop, lighting direction, and background geometry unchanged. Replace only the casual jacket with a dark business jacket that fits the existing shoulders and light. Preserve all other pixels as closely as the host tool allows.
+reference-1
+role: identity
+use: recognizable visible appearance, hair/facial hair, skin tone, age impression
+may change: pose, crop, location, wardrobe unless separately protected
+
+reference-2
+role: wardrobe
+use: dark green overshirt cut/material and white t-shirt layering
+may change: pose and lighting to fit the target scene
+
+reference-3
+role: environment
+use: ordinary local beach character and chair/umbrella density
+may change: exact people and temporary objects
 ```
 
-### New-scene generation from identity reference
+Do not make the environment image overwrite the identity evidence or vice versa.
 
-When the person must be placed in a new environment, preserve identity but allow pose, clothing, framing, and background to change according to the scene brief.
+## 4. Generation prompt order
 
-## Multi-image continuity
+Use this order to preserve priority:
 
-If the user requests a photo set:
+1. result
+2. references
+3. subject
+4. moment/action
+5. environment
+6. composition and subject scale
+7. capture profile and camera cues
+8. lighting
+9. material/skin/fabric realism
+10. constraints
 
-Lock across all images:
+Template:
 
-- identity
-- skin rendering
-- general grooming
-- wardrobe unless the user asks for changes
-- color response
-- lighting family where the same event or session is implied
+```text
+RESULT
+Create a believable natural photograph of [subject/result].
+
+REFERENCES
+[asset-role mapping and visible evidence to use]
+
+MOMENT
+[one clear action]
+
+ENVIRONMENT
+[credible location and only story-bearing context]
+
+COMPOSITION AND CAPTURE
+[subject scale, camera relationship, distance, framing, capture profile, visible perspective/focus behavior]
+
+LIGHT
+[dominant source and plausible secondary fill/exposure character]
+
+REALISM
+Keep visible appearance consistent with the identity reference, natural skin/fabric/material texture, plausible anatomy/contact, coherent room/scene geometry, and normal small asymmetries appropriate to the capture profile.
+
+CONSTRAINTS
+[only relevant failures to avoid]
+```
+
+## 5. Edit prompt order
+
+Edits always state what may change and what must remain stable.
+
+```text
+RESULT
+Edit the supplied image rather than rebuilding unrelated content.
+
+CHANGE
+- [requested modification]
+
+PRESERVE
+- [visible identity/appearance]
+- [expression]
+- [body shape and pose]
+- [crop/camera relationship]
+- [lighting]
+- [background/objects]
+- [prior accepted edits]
+
+REFERENCES
+[any identity/wardrobe/environment references and their roles]
+
+SUCCESS CONDITION
+The requested change is clearly present while protected details remain stable as far as the engine supports.
+```
+
+Do not substitute `keep everything else the same` for an important preserve set.
+
+## 6. Operation selection
+
+### New-scene generation
+
+Use when the pose/environment/composition may legitimately change to create a new moment.
+
+### Whole-image edit
+
+Use when the existing image is the base state but the requested change is broad enough to affect several regions.
+
+### Local edit
+
+Use when one bounded object/body part/garment/region should change and the host supports local editing.
+
+### Mask-guided local edit
+
+Use where a mask is available and the engine supports it. Treat the mask as guidance, not a guarantee of pixel-exact protection.
+
+### Multi-reference
+
+Use when different inputs intentionally supply different roles. Make the role map explicit in both the packet and prompt.
+
+### Multi-turn edit
+
+Restate critical preserve details each turn and include prior accepted edits in the preserve set.
+
+### External composite
+
+Use when the user requires literal pixel identity outside the approved edit and the host can composite the edited region back into the original.
+
+## 7. Constraint translation
+
+Portable constraints are semantic:
+
+- no plastic skin
+- no unexplained glow
+- no unrelated object changes
+- no generic stock-photo grin
+- no fake portrait blur for a distant phone candid
+- no readable text unless requested/supplied
+
+Do not expose a universal `negative prompt` field. Each engine adapter translates constraints into the mechanism it actually supports.
+
+## 8. Prompt compression
+
+Prefer:
+
+- nouns
+- actions
+- spatial relationships
+- visible material/light behavior
+- explicit change/preserve rules
+
+Avoid:
+
+- repeated `realistic/natural/photographic` synonyms
+- long aesthetic adjective chains
+- camera metadata that has no visible consequence
+- irrelevant failure lists
+- perfect symmetry
+- flawless/airbrushed skin
+- artificial micro-detail requests that conflict with subject distance
+
+## 9. Series continuity
+
+Lock only what the series is supposed to share:
+
+- identity-role evidence
+- grooming
+- wardrobe when the same session implies it
+- event/location continuity when applicable
+- accepted color/light family when the sequence is one occasion
 
 Vary deliberately:
 
 - shot size
-- camera side
+- camera side/height
 - moment within the activity
 - gaze
 - foreground relationship
 - environmental emphasis
 
-Do not duplicate the same pose with different backgrounds.
+Do not create the same pose with changed backgrounds.
+
+## 10. Engine dispatch
+
+### OpenAI GPT Image 2.5
+
+Read `engines/openai-gpt-image-2.5.md` before choosing model/quality/size/background/format or edit behavior.
+
+### Other engines
+
+Use a current verified engine reference if one exists. If not, retain the portable packet and state that vendor-specific syntax requires current documentation. Do not resurrect remembered version flags as facts.
+
+## 11. Text-only handoff
+
+When image execution is unavailable, return:
+
+- operation
+- selected engine/model if justified
+- structured request parameters
+- reference-role map
+- prompt body
+- change/preserve sets
+- visual QA requirements
+- `execution_status: NOT_EXECUTED`
+- `visual_qa_status: UNVERIFIED`
+
+This is a complete compilation result, not a generated-image result.

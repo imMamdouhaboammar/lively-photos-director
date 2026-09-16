@@ -1,31 +1,127 @@
-# Solution: Fully Agentic Codex Plugin with Smart & Dynamic Router for Lively Photos Director
+# Solution: Engine-Aware Lively Photos Director
 
-## Context & Problem
-The repository `lively-photos-director` was initially authored as a flat single-skill repository (primarily targeting `skills.sh` and simple agent directories). The objective was to elevate it into a **fully agentic OpenAI Codex Plugin** equipped with a **Smart Dynamic Router & Master Orchestrator**, while strictly adhering to the 2026 OpenAI Plugin specification and all quality gates from `chatgpt-codex-plugin-autopilot`.
+Status: implemented in the GPT Image 2.5 upgrade branch
+Design date: 2026-09-16
 
-## Architecture & Implementation
-1. **Modular Multi-Agent Skills Suite (`skills/`)**:
-   - `lively-photos-director`: Central orchestrator and dynamic intent router. Classifies user requests across 4 dimensions (Workflow stage, Photographic mode, Target engine, and Execution tool availability) and coordinates the sub-skills.
-   - `photo-scene-director`: Sets optical parameters (focal lengths 28mm-85mm, apertures f/1.4-f/8, shutter speed) and physical light coherence across 5 photography modes.
-   - `engine-prompt-compiler`: Multi-engine translation tailored for ChatGPT/DALL-E 3, Midjourney v6.1 (`--v 6.1`, `--style raw`, `--ar`, `--cw`), Flux.1 (Dev/Pro), and SDXL.
-   - `photo-qa-reviewer`: 6-Gate Realism Audit (Likeness, Anatomy, Optics, Illumination, Context, Slop) and compiler for surgical delta inpainting repair prompts.
-   - `host-workspace-operator`: Canonical host-native workspace operations installed via autopilot.
+## Problem
 
-2. **Official OpenAI Manifest & Interface (`.codex-plugin/plugin.json`)**:
-   - Conforms strictly to schema with valid author, skills path (`./skills/`), categories, 8 capabilities, 3 unique normalized starter prompts, and compliant light/dark brand colors meeting the 2:1 contrast ratio against `#FFFFFF` and `#212121`.
+The earlier Plugin had useful photography concepts but its engine layer behaved like a static prompt-syntax table. It mixed scene direction with vendor syntax, presented exact camera metadata as if the generator simulated real optics, treated negative prompting as broadly portable, and still described a retired OpenAI image model as active.
 
-3. **SVG Brand Identity Pack (`assets/`)**:
-   - Designed matching square SVG logos (`logo-light.svg`, `logo-dark.svg`) and a 512x512 square composer icon (`icon.svg`) featuring a camera aperture and authentic human focal silhouette.
+The root Skill and nested Plugin Skill also carried overlapping behavioral contracts that could drift independently.
 
-4. **Submission Pack (`submission/`)**:
-   - `submission/listing.json`: Complete directory pack satisfying all character limits and listing requirements.
-   - `submission/reviewer_tests.json`: 5 positive reviewer test cases and 3 negative refusal test cases.
+## Resulting architecture
 
-5. **CLI & Unit Testing (`bin/cli.js`, `tests/cli.test.ts`)**:
-   - Added `skills` and `route <prompt>` commands to the CLI runner, enabling local testing of router decisions.
-   - All 7 Bun unit tests pass in under 200ms.
+The public surface remains five Skills:
 
-## Key Learnings & Guardrails
-- **OS Metadata Hygiene**: macOS Finder creates `.DS_Store` which fails strict public plugin validators. Cleaning `.DS_Store` before packaging ensures zero-error preflight.
-- **Machine-Specific Path Scans**: Custom repo validators (like `validate_skill.py`) enforce zero machine-specific paths (e.g. absolute user home paths). All scripts and package configurations must use portable relative paths (`scripts/validate_plugin.py`).
-- **Deterministic Reproducibility**: `package_plugin.py` produces bit-for-bit identical ZIP archives across multiple builds with matching SHA-256 hashes.
+1. `lively-photos-director`: canonical request classifier/orchestrator
+2. `photo-scene-director`: photographic moment, capture character, subject scale, camera cues, light and context
+3. `engine-prompt-compiler`: engine/model/operation/request parameter mapping and prompt compilation
+4. `photo-qa-reviewer`: image-evidence gates, failure diagnosis and revision strategy
+5. `host-workspace-operator`: host-native asset/file operations
+
+GPT Image 2.5 is not a sixth public Skill. Its changing vendor contract lives under `references/engines/openai-gpt-image-2.5.md` and is loaded by the engine compiler when relevant.
+
+## Canonical behavior
+
+`skills/lively-photos-director/SKILL.md` is the canonical full orchestrator contract.
+
+Root `SKILL.md` is the portable registry entrypoint and points to the canonical nested Skill plus progressive references. This removes the need to keep two full orchestration manuals synchronized.
+
+## Decision model
+
+The orchestrator classifies independent axes that materially change downstream behavior:
+
+- operation: generation, edit, repair, series, audit or compile
+- reference strength and role
+- scene mode
+- capture profile
+- subject scale/distance
+- execution capability
+
+Scene mode answers what is happening. Capture profile answers how the image feels photographed. Subject scale protects explicit distance from being overwritten by portrait defaults.
+
+## Reference contract
+
+Multiple references are mapped explicitly to roles such as identity, wardrobe, environment, composition, lighting, style, background or prop.
+
+Visible-person preservation uses user-supplied visible appearance as evidence. It does not identify the person or construct biometric templates.
+
+## OpenAI engine contract
+
+The current adapter separates:
+
+- Flare vs Sunburst model selection
+- generation vs editing operation
+- quality
+- size
+- background
+- output format/compression
+- reference map
+- prompt body
+- CHANGE/PRESERVE sets
+
+Request parameters remain structured controls rather than decorative prose.
+
+The adapter supports multi-turn preservation rules and acknowledges that mask-guided edits do not guarantee exact unchanged pixels. Pixel-identical preservation routes to host-side compositing when available.
+
+## Photography realism
+
+Camera vocabulary describes visible perspective, subject scale, focus/context retention and camera relationship. It does not claim exact physical lens/sensor simulation.
+
+Capture profiles introduce controlled imperfection where it belongs. A phone candid can be slightly off-center with normal phone depth and ordinary environmental clutter without becoming intentionally degraded.
+
+## QA
+
+Six base gates remain recognizable:
+
+- likeness
+- anatomy
+- perspective
+- lighting
+- context
+- synthetic residue
+
+Conditional gates cover:
+
+- requested edit happened
+- preserve set remained stable
+- no unrelated edit drift
+- transparency edges
+- requested text
+- multi-turn continuity
+- series continuity
+
+Without an actual output image, the visual verdict is `UNVERIFIED`.
+
+## Revision strategy
+
+The repair loop now classifies the failure before changing anything. Local artifacts prefer local edits. Prompt ambiguity is fixed in wording. Composition problems return to direction. Model or quality changes require evidence that those choices are the actual bottleneck. Exact protected pixels use compositing rather than a prompt-only promise.
+
+## Validation
+
+`validate_skill.py` now checks:
+
+- five-Skill public surface
+- canonical nested orchestrator presence
+- required GPT Image 2.5 engine reference
+- semantic eval breadth
+- structured schema contract fields
+- synchronized package/manifest/submission versions
+- required Flare/Sunburst aliases and snapshots
+- absence of active retired-engine capability claims
+- secret/machine-path cleanliness
+
+CI runs Bun tests, CLI smoke checks, Skill validation, Plugin validation, deterministic packaging twice, byte comparison and validation of a newly extracted package.
+
+## Submission evidence
+
+`submission/reviewer_tests.json` contains reviewer test definitions and expected behavior. It explicitly does not represent executed-result evidence for 1.2.0 until the exact packaged version is run and evidence references are populated.
+
+## Deliberate non-goals
+
+- no sixth GPT-specific public Skill
+- no new runtime framework/dependency
+- no generated sync layer for Skill copies
+- no hard-coded current claims for third-party engine flags that were not re-verified
+- no automatic max-quality routing
+- no prompt-only pixel-preservation guarantee

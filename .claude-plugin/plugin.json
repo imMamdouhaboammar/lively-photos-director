@@ -1,7 +1,7 @@
 {
   "name": "lively-photos-director",
-  "description": "Direct believable, natural, human-first photos from real-person reference photos",
-  "version": "1.0.0",
+  "description": "Direct believable natural photographs and precise image revisions from real-person reference photos",
+  "version": "1.2.0",
   "author": {
     "name": "Mamdouh Aboammar",
     "url": "https://github.com/imMamdouhaboammar"
