@@ -235,7 +235,7 @@ Failure class: <class or none>
 Recommended next action: <smallest justified action>
 ```
 
-`APPROVE` requires all applicable hard gates to be PASS.
+`APPROVE` requires all applicable hard and conditional gates to be PASS.
 
 `REVISE` means an observed issue is repairable while preserving the accepted concept.
 

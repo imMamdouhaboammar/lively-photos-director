@@ -81,6 +81,15 @@ describe("lively-photos-director CLI", () => {
     expect(res.stdout).toContain("photo-qa-reviewer");
   });
 
+  test("routes ordinary mutation of an existing photo as an edit", () => {
+    const res = run("route", "Make the background brighter in this photo");
+    expect(res.status).toBe(0);
+    expect(res.stdout).toContain("Operation:        edit_existing_image");
+    expect(res.stdout).toContain("CHANGE and PRESERVE");
+    expect(res.stdout).toContain("engine-prompt-compiler");
+    expect(res.stdout).toContain("photo-qa-reviewer");
+  });
+
   test("selects Sunburst for preservation-sensitive GPT Image edit", () => {
     const res = run("route", "Use GPT Image 2.5 for a precision edit. Change only the jacket and preserve every accepted detail that cannot drift.");
     expect(res.status).toBe(0);

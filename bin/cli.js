@@ -156,10 +156,17 @@ function detectOperation(query) {
   const explicitRepairIntent = containsAny(query, [
     'repair', 'fix only', 'fix the', 'fix this', 'correct the', 'correct this'
   ]);
-  const editIntent = containsAny(query, [
+  const explicitEditIntent = containsAny(query, [
     'edit', 'change only', 'replace only', 'remove the', 'continue editing', 'continue from the approved',
     'keep my face', 'preserve the rest'
   ]);
+  const existingImageCue = containsAny(query, [
+    'this photo', 'this image', 'existing photo', 'existing image', 'generated photo', 'generated image'
+  ]);
+  const mutationIntent = containsAny(query, [
+    'make ', 'brighten', 'darken', 'change ', 'replace ', 'remove ', 'add ', 'adjust ', 'crop ', 'blur ', 'sharpen ', 'recolor ', 'retouch '
+  ]);
+  const editIntent = explicitEditIntent || (existingImageCue && mutationIntent);
   const auditIntent = containsAny(query, [
     'audit', 'review', 'qa', 'check this generated', 'check this image', 'check this photo'
   ]);

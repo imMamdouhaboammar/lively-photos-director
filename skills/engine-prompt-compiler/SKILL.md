@@ -218,6 +218,7 @@ Return:
 - compiled prompt
 - QA requirements
 - `execution_status: NOT_EXECUTED`
+- `visual_qa_status: UNVERIFIED`
 
 ### `unknown`
 
