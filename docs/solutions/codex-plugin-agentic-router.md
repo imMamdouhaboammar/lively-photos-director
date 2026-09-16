@@ -5,7 +5,7 @@ Design date: 2026-09-16
 
 ## Problem
 
-The earlier Plugin had useful photography concepts but its engine layer behaved like a static prompt-syntax table. It mixed scene direction with vendor syntax, presented exact camera metadata as if the generator simulated real optics, treated negative prompting as broadly portable, and still described DALL-E 3 as an active OpenAI engine.
+The earlier Plugin had useful photography concepts but its engine layer behaved like a static prompt-syntax table. It mixed scene direction with vendor syntax, presented exact camera metadata as if the generator simulated real optics, treated negative prompting as broadly portable, and still described a retired OpenAI image model as active.
 
 The root Skill and nested Plugin Skill also carried overlapping behavioral contracts that could drift independently.
 
@@ -108,7 +108,7 @@ The repair loop now classifies the failure before changing anything. Local artif
 - structured schema contract fields
 - synchronized package/manifest/submission versions
 - required Flare/Sunburst aliases and snapshots
-- absence of active DALL-E 3 capability claims
+- absence of active retired-engine capability claims
 - secret/machine-path cleanliness
 
 CI runs Bun tests, CLI smoke checks, Skill validation, Plugin validation, deterministic packaging twice, byte comparison and validation of a newly extracted package.
